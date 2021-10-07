@@ -9,8 +9,9 @@
 		<typeAlias type="com.hk.dtos.CalDto" alias="calDto"/>
 		<typeAlias type="com.hk.dtos.LoginDto" alias="loginDto"/>
 		<typeAlias type="com.hk.dtos.TuDto" alias="tuDto"/>
+				<typeAlias type="com.hk.dtos.StuDto" alias="stuDto"/>
 		<typeAlias type="com.hk.dtos.TeamDto" alias="teamDto"/>
-		<typeAlias type="com.hk.dtos.StuDto" alias="stuDto"/>
+		<typeAlias type="com.hk.dtos.ADto" alias="aDto"/>
 	</typeAliases>
 	
 <!-- 	DB접속 정보 셋팅 -->
@@ -32,6 +33,7 @@
 		<mapper resource="sql/TuMapper.xml"/>
 		<mapper resource="sql/StuMapper.xml"/>
 		<mapper resource="sql/TeamMapper.xml"/>
+		<mapper resource="sql/AMapper.xml"/>
 	</mappers>
 </configuration>
 
