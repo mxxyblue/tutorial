@@ -92,7 +92,8 @@ public class CalController extends HttpServlet {
 //			String ymd=y_m_d.replaceAll("-", "");//2021-09-27 --> 20210927
 //			String mdate2=ymd+isTwo(hour)+isTwo(min);
 			
-			boolean isS=dao.calInsert(new CalDto(0,id,caltitle,calcontent,mdate,null));
+			//다시봐!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			boolean isS=dao.calInsert(new CalDto(0,id,caltitle,calcontent,mdate,null, 0, null));
 			if(isS) {
 				response.sendRedirect("CalController.do?command=calendar&year="+year+"&month="+month);
 			}else {
@@ -163,7 +164,8 @@ public class CalController extends HttpServlet {
 			String caltitle=request.getParameter("caltitle");
 			String calcontent=request.getParameter("calcontent");
 			
-			boolean isS=dao.calUpdate(new CalDto(cseq, null, caltitle, calcontent, mdate, null));
+			//다시봐!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			boolean isS=dao.calUpdate(new CalDto(cseq, null, caltitle, calcontent, mdate, null, cseq, null));
 			if(isS) {
 				//글을 수정하고 해당 일정내용으로 돌아가고, 일정내용에서 목록으로 돌아갈때 필요한 값
 				//                                         --> year, month, date값이 필요
