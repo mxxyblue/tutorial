@@ -4,11 +4,13 @@
 <mapper namespace="com.hk.login">
 
 	<select id="getLogin" resultType="loginDto" parameterType="Map" >
-		SELECT ID, NAME, ADDRESS, EMAIL, PHONE, ENABLED, ROLE 
-		FROM USERINFO WHERE ID=#{id} AND PASSWORD=#{password} AND ENABLED='Y'
+		SELECT ID, NAME, ADDRESS, PHONE, EMAIL, ENABLED, ROLE 
+		FROM MEMBER WHERE ID=#{id} AND PASSWORD=#{password} AND ENABLED='Y'
 	</select>
 	
-	
+	<insert id="insertUser" parameterType="Map">
+		INSERT INTO MEMBER VALUES(#{id},#{name},#{address},#{phone},#{email},'Y','TUTEE',SYSDATE)
+	</insert>
 </mapper>
 
 

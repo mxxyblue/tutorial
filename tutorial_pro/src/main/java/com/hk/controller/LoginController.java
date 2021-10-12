@@ -41,9 +41,9 @@ public class LoginController extends HttpServlet {
 				
 				if(ldto.getRole().toUpperCase().equals("ADMIN")) {
 					response.sendRedirect("admin_main.jsp");
-				}else if(ldto.getRole().toUpperCase().equals("MANAGER")) {
+				}else if(ldto.getRole().toUpperCase().equals("TUTOR")) {
 					response.sendRedirect("user_main.jsp");
-				}else if(ldto.getRole().toUpperCase().equals("USER")) {
+				}else if(ldto.getRole().toUpperCase().equals("TUTEE")) {
 					response.sendRedirect("user_main.jsp");
 				}
 			}
