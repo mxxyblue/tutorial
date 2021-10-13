@@ -42,9 +42,9 @@ public class LoginController extends HttpServlet {
 				if(ldto.getRole().toUpperCase().equals("ADMIN")) {
 					response.sendRedirect("admin_main.jsp");
 				}else if(ldto.getRole().toUpperCase().equals("TUTOR")) {
-					response.sendRedirect("user_main.jsp");
+					response.sendRedirect("TuController.do?command=main2");
 				}else if(ldto.getRole().toUpperCase().equals("TUTEE")) {
-					response.sendRedirect("user_main.jsp");
+					response.sendRedirect("TuController.do?command=main2");
 				}
 			}
 		}else if(command.equals("logout")) {

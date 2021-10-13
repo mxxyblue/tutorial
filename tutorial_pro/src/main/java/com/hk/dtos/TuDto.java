@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class TuDto {
 
+	private String regdateStr;
 	private int tseq;
 	private String tid;
 	private String ttitle;
@@ -18,9 +19,10 @@ public class TuDto {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public TuDto(int tseq, String tid, String ttitle, String tcontent, Date tregdate, int trefer, int tstep, int tdepth,
-			int treadcount, String tdelflag) {
+	public TuDto(String regdateStr, int tseq, String tid, String ttitle, String tcontent, Date tregdate, int trefer,
+			int tstep, int tdepth, int treadcount, String tdelflag) {
 		super();
+		this.regdateStr = regdateStr;
 		this.tseq = tseq;
 		this.tid = tid;
 		this.ttitle = ttitle;
@@ -31,6 +33,37 @@ public class TuDto {
 		this.tdepth = tdepth;
 		this.treadcount = treadcount;
 		this.tdelflag = tdelflag;
+	}
+
+	
+	
+	
+	
+	
+	public TuDto(int tseq, String ttitle, String tcontent) {
+		super();
+		this.tseq = tseq;
+		this.ttitle = ttitle;
+		this.tcontent = tcontent;
+	}
+	public TuDto(int tseq, String tid, String ttitle, String tcontent) {
+		super();
+		this.tseq = tseq;
+		this.tid = tid;
+		this.ttitle = ttitle;
+		this.tcontent = tcontent;
+	}
+	public TuDto(String tid, String ttitle, String tcontent) {
+		super();
+		this.tid = tid;
+		this.ttitle = ttitle;
+		this.tcontent = tcontent;
+	}
+	public String getRegdateStr() {
+		return regdateStr;
+	}
+	public void setRegdateStr(String regdateStr) {
+		this.regdateStr = regdateStr;
 	}
 	public int getTseq() {
 		return tseq;
@@ -94,12 +127,10 @@ public class TuDto {
 	}
 	@Override
 	public String toString() {
-		return "TuDto [tseq=" + tseq + ", tid=" + tid + ", ttitle=" + ttitle + ", tcontent=" + tcontent + ", tregdate="
-				+ tregdate + ", trefer=" + trefer + ", tstep=" + tstep + ", tdepth=" + tdepth + ", treadcount="
-				+ treadcount + ", tdelflag=" + tdelflag + "]";
+		return "TuDto [regdateStr=" + regdateStr + ", tseq=" + tseq + ", tid=" + tid + ", ttitle=" + ttitle
+				+ ", tcontent=" + tcontent + ", tregdate=" + tregdate + ", trefer=" + trefer + ", tstep=" + tstep
+				+ ", tdepth=" + tdepth + ", treadcount=" + treadcount + ", tdelflag=" + tdelflag + "]";
 	}
 
-	
-	
 	
 }
