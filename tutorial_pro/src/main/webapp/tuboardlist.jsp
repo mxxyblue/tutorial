@@ -116,6 +116,7 @@
 		
 </style>
 </head>
+
 <body>
 <%
 // 	Util util=new Util();
@@ -127,7 +128,7 @@
 <%-- <jsp:getProperty property="arrow" name="util"/> --%>
 <div id="wrap">
 	<div id="header">
-				<a href="index2.jsp">
+				<a href="TuController.do?command=main2">
 				<img width="200px" height="200px" src="img/logo.png" alt="logo"/>
 				</a>
 	</div>

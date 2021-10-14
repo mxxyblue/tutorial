@@ -25,29 +25,15 @@
 		WHERE TSEQ=#{tseq} 
 	</update>
 	
-	<!-- collection:배열객체, open:처음에 한번실행, close: 마지막에 한번 실행 , item:값을 받는 변수 -->
-<!-- 	<update id="delboard" parameterType="Map"> -->
-<!-- 		<![CDATA[ -->
-<!-- 		UPDATE TUBOARD  -->
-<!-- 		SET TDELFLAG = 'Y'  -->
-<!-- 		WHERE TSEQ IN  -->
-<!-- 		<foreach collection="seqs" item="tseq" open="(" close=")" separator=","> -->
-<!--  			#{tseq} -->
-<!-- 		</foreach> -->
-<!-- 		]]> -->
-<!-- 	</update> -->
-		
-		<delete id="deleteboard" parameterType="Map">
-			<![CDATA[
+
+	<delete id="deleteboard" parameterType="Map">
 		DELETE FROM TUBOARD 
 		WHERE TSEQ IN
-		<foreach collection="seqs" item="tseq" open="(" close=")" separator=",">
-  			#{tseq}
+		<foreach collection="seqs" item="ttseq" open="(" close=")" separator=","> 
+			#{ttseq}
  		</foreach>
- 		
-		]]>
-		
-		</delete>
+	</delete>
+	
 	
 	<update id="readcount" parameterType="int">
 		<![CDATA[
