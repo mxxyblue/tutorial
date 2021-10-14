@@ -2,7 +2,6 @@
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=UTF-8"); %>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,23 +17,15 @@ href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.cs
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap" rel="stylesheet">
+
 <style type="text/css">
-	header{
-		background-color: orange;
-		padding: 1px;
-	}
-	header > h1 {
-		text-align: center;
-	}
-	#tablebox{
-		width: 600px;
-		margin: 0 auto;
-	}
+	
 </style>
 </head>
 <body>
-<header>
-	<h1>답변형게시판(MVC2패턴)</h1>
-</header>
 </body>
 </html>

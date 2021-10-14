@@ -4,6 +4,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="com.hk.dtos.LoginDto"%>
+<%@include file="header.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -11,6 +12,9 @@
 
 <meta charset="UTF-8" />
 <title></title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap" rel="stylesheet">
 <!--    	<link rel="stylesheet" type="text/css" href="style2.css"> -->
 <style type="text/css">
 /* 	@import url("f/style2.css"); */
@@ -25,13 +29,10 @@
 #main >ul{ list-style:none;}
 
 .box1, .box2, .box3, .box4,.box5,.box6{
-	background-color: white;
+/* 	background-color: white; */
 	display: inline-block;
 }
 
-#main, #footer{
-  	background-color: silver;  
-}
 
 #wrap{
 	width: 100%;
@@ -46,8 +47,9 @@
 	float: left;
 	width: 14%;
 	height:500px;
-	background-color: #DAE3F3;
+	background-color:#0074BB;
 	text-align: center;
+	
 }
 
 #main{
@@ -57,6 +59,7 @@
 /* 	height:500px; */
  	text-align: center; 
 	position: relative;
+	background-color: #F2F2F2;
 }
 
 
@@ -65,6 +68,7 @@
 	text-align: center;
 	line-height: 50px;
 	clear: both;
+	background-color: #F2F2F2;
 	
 }
 #header{
@@ -78,8 +82,15 @@
 /* 	height:500px; */
  	text-align: center; 
 	position: relative;
-	background-color: red;
+	background-color: #F186B6;
+	
+	}
+	
+h1{
+font-family: 'Gaegu', cursive;
 }
+	
+	
 /*테이블 디자인 추가 */
 
 
@@ -113,10 +124,10 @@
 			</ul>
 		</div>
 		<div id="main">
-			<h1>흠</h1>
+			<h1>★ 튜터 / 튜티 홍보 ★</h1>
 			<c:forEach items="${list}" var="dto">
 			<div class="box1">
-				<table border="1">
+				<table class="table table-hover">
 <!-- 				<colgroup> -->
 <!-- 				<col width="10%"><col width="10%"></colgroup> -->
 					
@@ -135,7 +146,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<a href="TuController.do?command=detailboard&seq=${dto.tseq}"><button type="button">글이동</button></a>
+							<a href="TuController.do?command=detailboard&seq=${dto.tseq}"><button class="btn btn-default" type="button">글이동</button></a>
 						</td>
 					</tr>
 				</table>
@@ -146,7 +157,7 @@
 	<div id="login">
 			<ul>
 			<li><a href="loginindex.jsp">로그인</a></li>
-			<li><a href="#">회원가입</a></li>
+			<li><a href="registform.jsp">회원가입</a></li>
 			</ul>
 	</div>
 </div>

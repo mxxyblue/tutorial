@@ -1,4 +1,4 @@
-<%-- <%@include file="header.jsp" %> --%>
+<%@include file="header.jsp" %>
 <%@page import="com.hk.utils.Util"%>
 <%@page import="com.hk.dtos.TuDto"%>
 <%@page import="java.util.List"%>
@@ -7,12 +7,16 @@
 <%response.setContentType("text/html; charset=UTF-8"); %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page import="com.hk.dtos.LoginDto"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>홍보게시판</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap" rel="stylesheet">
 <script type="text/javascript">
 	function allSel(bool){
 		var chks=document.getElementsByName("chk");
@@ -47,13 +51,13 @@
 	*/
 	
 	//게시판에서 refer, step, ...등의 값을 감추거나 보이게 하는 기능
-	function attrShow(){
-		$("th").slice(5,8).toggle().end().eq(9).toggle();
-		$("tr").each(function(){
-			$(this).children("td").slice(5,8).toggle().end().eq(9).toggle();
-		});
+// 	function attrShow(){
+// 		$("th").slice(5,8).toggle().end().eq(9).toggle();
+// 		$("tr").each(function(){
+// 			$(this).children("td").slice(5,8).toggle().end().eq(9).toggle();
+// 		});
 		
-	}
+// 	}
 	
 </script>
 <style type="text/css">
@@ -67,56 +71,86 @@
 /*  		margin-left: 450px;  */
 /* 	} */
 
+	#login >ul{list-style:none;}
+	#login> ul >li{margin-right:50px; font-size: 15px;}
+	
 	#submenu >ul{list-style:none;}
 	#submenu> ul >li{margin-right:50px; font-size: 15px;}
 	
 	#main >ul{ list-style:none;}
 	
-	#main, #footer{
-	  	background-color: silver;  
-	}
-	
 	#wrap{
-		width: 100%;
-		max-width: 1280px; margin: 0 auto;
-	}
+	width: 100%;
+	max-width: 1500px; margin: 0 auto;
+}
+
 	
-	#submenu, #main{
-		margin: 10px auto;
-	}
+	#submenu, #main, #login{
+	margin: 10px auto;
+}
 	
 	#submenu {
-		float: left;
-		width: 18%;
-		height:500px;
-		background-color: #DAE3F3;
-		text-align: center;
-	}
+	float: left;
+	width: 14%;
+	height:500px;
+	background-color:#0074BB;
+	text-align: center;
+	
+}
 	
 	#main{
-		margin-left:10px;
-		float: left;
-		width: 78%;
-	/* 	height:500px; */
-	 	text-align: center; 
-		position: relative;
-	}
+	margin-left:10px;
+	float: left;
+	width: 72%;
+/* 	height:500px; */
+ 	text-align: center; 
+	position: relative;
+	background-color: #F2F2F2;
+}
 	
+	#login{
+	margin-left:10px;
+	float: left;
+	width: 12%;
+/* 	height:500px; */
+ 	text-align: center; 
+	position: relative;
+	background-color: #F186B6;
+	
+	}
 	
 	#footer {
-		color:#523D02;
-		text-align: center;
-		line-height: 50px;
-		clear: both;
-		
-	}
+	color:#523D02;
+	text-align: center;
+	line-height: 50px;
+	clear: both;
+	background-color: #F2F2F2;
+	
+}
 	#header{
 		text-align: center;
 	}
+	
+	h1{
+font-family: 'Gaegu', cursive;
+}
+/* 	#tablelist{ */
+/* 		text-align: center;  */
+/* 	} */
 		
 </style>
 </head>
-
+<%
+	//scope객체에 저장하면 모두 Object타입
+	LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+// 	Object ldto=session.getAttribute("ldto");
+	
+	//sesseion에 로그인 정보가 없다면(로그아웃) 로그인 페이지로 이동
+	if(ldto==null){
+		pageContext.forward("index2.jsp");
+// 		response.sendRedirect("index.jsp");
+	}
+%>
 <body>
 <%
 // 	Util util=new Util();
@@ -141,7 +175,7 @@
 	</div>
 	<div id="container">
 		<div id="main">
-		<h1>게시판 글목록</h1>
+		<h1>★ 튜터 / 튜티 홍보 ★</h1>
 		<!-- <div id="ajaxform"> -->
 		<!-- 	작성일:<input type="text" id="regdate" /><br/>	 -->
 		<!-- 	작성자:<input type="text" id="id" /><br/> -->
@@ -151,7 +185,7 @@
 		
 		<form action="TuController.do" method="post" onsubmit="return isChecked()">
 		<input type="hidden" name="command" value="muldel"/>
-		<input type="button" value="속성보기" onclick="attrShow()">
+<!-- 		<input type="button" value="속성보기" onclick="attrShow()"> -->
 		<table class="table table-hover">
 			<tr>
 				<th><input class="checkbox" type="checkbox" name="all" onclick="allSel(this.checked)"/></th>
@@ -159,11 +193,11 @@
 				<th>작성자</th>
 				<th>제목</th>
 				<th>작성일</th>
-				<th>refer</th>
-				<th>step</th>
-				<th>depth</th>
+<!-- 				<th>refer</th> -->
+<!-- 				<th>step</th> -->
+<!-- 				<th>depth</th> -->
 				<th>조회수</th>
-				<th>delflag</th>
+<!-- 				<th>delflag</th> -->
 			</tr>
 			<c:set var="count" value="0" />
 			<c:choose>
@@ -196,19 +230,19 @@
 								</c:otherwise>
 							</c:choose>
 							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${dto.tregdate}"/></td>
-							<td>${dto.trefer}</td>
-							<td>${dto.tstep}</td>
-							<td>${dto.tdepth}</td>
+<%-- 							<td>${dto.trefer}</td> --%>
+<%-- 							<td>${dto.tstep}</td> --%>
+<%-- 							<td>${dto.tdepth}</td> --%>
 							<td>${dto.treadcount}</td>
-							<td>${dto.tdelflag}</td>
+<%-- 							<td>${dto.tdelflag}</td> --%>
 						</tr>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 			<tr>
 				<td colspan="10">
-					<input class="btn btn-primary" type="submit" value="삭제">
-					<input class="btn btn-success" type="button" value="글추가" onclick="insertForm()" />
+					<input class="btn btn-default" type="submit" value="삭제">
+					<input class="btn btn-default" type="button" value="글추가" onclick="insertForm()" />
 				</td>
 			</tr>
 			
@@ -216,19 +250,18 @@
 		</form>
 		</div>
 	</div>
+	<div id="login">
+			<ul>
+				<li><%=ldto.getName() %>님</li><li>반갑습니다~</li>
+				<li>등급:<%=ldto.getRole().equals("TUTOR")?"튜터★":"튜티★"%></li>
+				<br>
+				<li><a href="userinfo.jsp?id=<%=ldto.getId()%>">마이페이지</a></li>
+				<li><a href="LoginController.do?command=logout">로그아웃</a></li>
+			</ul>
+	</div>
+	
 </div>
 <div id="footer">주소: 서울특별시 영등포구 양평동3가 15-1 4층</div>
-<%!
-// public String arrowNbsp(String depth){
-// 	String nbsp="";
-// 	int depthInt=Integer.parseInt(depth);
-// 	for(int i=0;i<depthInt;i++){
-// 		nbsp+="&nbsp;&nbsp;&nbsp;&nbsp;";
-// 	}
-	
-// 	return nbsp+(depthInt>0?"<img src='arrow.jpg'/>":"");
-// }
-%>
 </body>
 
 </html>

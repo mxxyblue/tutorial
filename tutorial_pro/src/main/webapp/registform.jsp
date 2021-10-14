@@ -6,6 +6,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=UTF-8"); %>
+<%@include file="header.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,16 +15,30 @@
 <title></title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <style type="text/css">
-	.table, .tr, .td {border: 1px solid black;}
+
+ 	.table, .tr, .td {border: 1px solid black;} 
 	.table{display: table;}
 	.tr{display: table-row;}
 	.td{display: table-cell; padding: 5px;}
-	#container{width: 400px; margin: 200px auto; }
 	
-	@media screen and (max-width: 400px){
-		.table,.tr,.td{display: block;}
+ 	@media screen and (max-width: 600px){ 
+/*  		.table,.tr,.td{display: block;}  */
 /* 		.td{padding: 5px;} */
+
 	}
+	#header{
+	text-align: center;
+	}
+	#container{
+	width: 600px; 
+	margin: 0 auto;
+	text-align: center;
+	}
+	
+	h1{
+	font-family: 'Gaegu', cursive;
+	}
+	
 </style>
 <script type="text/javascript">
 	function idChk(){
@@ -61,53 +77,58 @@
 </script>
 </head>
 <body>
-<h1>회원가입하기</h1>
-<form action="after_regist.jsp" method="post">
-	<div class="table">
-		<div class="tr">
-			<div class="td">아이디</div>
-			<div class="td">
-				<input type="text" name="id" title="n" required="required" autocomplete="off" />
-				<input type="button" value="중복체크" onclick="idChk()"/>
-			</div>
+		<div id="header">
+				<a href="index.jsp">
+				<img width="200px" height="200px" src="img/logo.png" alt="logo"/>
+				</a>
 		</div>
-		<div class="tr">
-			<div class="td">이름</div>
-			<div class="td">
-				<input type="text" name="name" required="required" />
+		<div id="container">
+		<h1>회원가입</h1>
+		<form action="after_regist.jsp" method="post">
+			<div class="table">
+				<div class="tr">
+					<div class="td">아이디</div>
+					<div class="td">
+						<input type="text" name="id" title="n" required="required" autocomplete="off" />
+						<input class="btn btn-default" type="button" value="중복체크" onclick="idChk()"/>
+					</div>
+				</div>
+				<div class="tr">
+					<div class="td">이름</div>
+					<div class="td">
+						<input type="text" name="name" required="required" />
+					</div>
+				</div>
+				<div class="tr">
+					<div class="td">비밀번호</div>
+					<div class="td">
+						<input type="password" name="pw" required="required" />
+					</div>
+				</div>
+				<div class="tr">
+					<div class="td">주소</div>
+					<div class="td">
+						<input type="text" name="address" required="required"  />
+					</div>
+				</div>
+				<div class="tr">
+					<div class="td">전화번호</div>
+					<div class="td">
+						<input type="tel" name="phone" required="required"  />
+					</div>
+				</div>
+				<div class="tr">
+					<div class="td">이메일</div>
+					<div class="td">
+						<input type="email" name="email" required="required" />
+					</div>
+				</div>
+				<div class="tr">
+						<input class="btn btn-default" type="submit" value="가입"/>
+						<input class="btn btn-default" type="button" value="취소" onclick="location.href='index.jsp'" />
+				</div>
+			</div>		
+			</form>
 			</div>
-		</div>
-		<div class="tr">
-			<div class="td">비밀번호</div>
-			<div class="td">
-				<input type="password" name="pw" required="required" />
-			</div>
-		</div>
-		<div class="tr">
-			<div class="td">주소</div>
-			<div class="td">
-				<input type="text" name="address" required="required"  />
-			</div>
-		</div>
-		<div class="tr">
-			<div class="td">전화번호</div>
-			<div class="td">
-				<input type="tel" name="phone" required="required"  />
-			</div>
-		</div>
-		<div class="tr">
-			<div class="td">이메일</div>
-			<div class="td">
-				<input type="email" name="email" required="required" />
-			</div>
-		</div>
-		<div class="tr">
-			<div class="td">
-				<input type="submit" value="가입"/>
-				<input type="button" value="취소" onclick="location.href='index.jsp'" />
-			</div>
-		</div>
-	</div>
-</form>
 </body>
 </html>
