@@ -231,6 +231,17 @@ table{width: 50px;}
 	String id=request.getParameter("id");
 	LoginDao2 dao = LoginDao2.getLoginDao();
 	LoginDto dto=dao.getUser(id);
+	LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+%>
+<%
+	String finalRole;
+	if(ldto.getRole().equals("TUTOR")){
+		finalRole="튜터★";
+}else if(ldto.getRole().equals("TUTEE")){
+	finalRole="튜티★";
+}else{
+	finalRole="관리자";
+}
 %>
 <body>
 <div id="wrap">
@@ -296,7 +307,7 @@ table{width: 50px;}
 			<nav class="main-nav2" role="navigation">
 			    <ul class="unstyled list-hover-slide2">
 				<li style="color: white; font-weight: bold;"><%=dto.getName() %>님</li><li>반갑습니다~</li>
-				<li>등급:<%=dto.getRole().equals("TUTOR")?"튜터★":"튜티★"%></li>
+				<li>등급:<%=finalRole%></li>
 				<br>
 				<li><a href="userinfo.jsp?id=<%=dto.getId()%>">마이페이지</a></li>
 				<li><a href="LoginController.do?command=logout">로그아웃</a></li>

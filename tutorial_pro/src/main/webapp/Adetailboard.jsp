@@ -215,6 +215,16 @@ font-family: 'Gaegu', cursive;
 // 		response.sendRedirect("index.jsp");
 	}
 %>
+<%
+	String finalRole;
+	if(ldto.getRole().equals("TUTOR")){
+		finalRole="튜터★";
+}else if(ldto.getRole().equals("TUTEE")){
+	finalRole="튜티★";
+}else{
+	finalRole="관리자";
+}
+%>
 <body>
 <div id="wrap">
 	<div id="header">
@@ -291,7 +301,7 @@ font-family: 'Gaegu', cursive;
 			<nav class="main-nav2" role="navigation">
 			    <ul class="unstyled list-hover-slide2">
 				<li style="color: white; font-weight: bold;"><%=ldto.getName() %>님</li><li>반갑습니다~</li>
-				<li>등급:<%=ldto.getRole().equals("TUTOR")?"튜터★":"튜티★"%></li>
+				<li>등급:<%=finalRole%></li>
 				<br>
 				<li><a href="userinfo.jsp?id=<%=ldto.getId()%>">마이페이지</a></li>
 				<li><a href="LoginController.do?command=logout">로그아웃</a></li>
