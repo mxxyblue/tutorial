@@ -204,7 +204,45 @@ public class LoginDao2 extends DataBase{
 		
 		return list;
 	}
-	
+	//사용중인 회원정보 목록 조회: select문 실행 where 추가 --> enabled='Y'
+	public List<LoginDto> getAllUserTeam(){
+		List<LoginDto> list=new ArrayList<>();
+		
+		Connection conn=null;
+		PreparedStatement psmt=null;
+		ResultSet rs=null;
+		
+		StringBuffer sb=new StringBuffer();
+		sb.append(" SELECT ID,NAME,ADDRESS,PHONE,EMAIL,ENABLED,ROLE,REGDATE ");
+		sb.append(" FROM MEMBER WHERE ENABLED='Y' ORDER BY ROLE DESC");
+		
+		try {
+			conn=getConnection();
+			psmt=conn.prepareStatement(sb.toString());
+			rs=psmt.executeQuery();
+			while(rs.next()) {
+				int i=1;
+				LoginDto dto=new LoginDto();//하나의 행의 데이터를 담을 객체
+				//rs에 있는 varchar2타입의 id를 java 타입인  String타입으로 변환해서 가져온다.
+				dto.setId(rs.getString(i++));
+				dto.setName(rs.getString(i++));
+				dto.setAddress(rs.getString(i++));
+				dto.setPhone(rs.getString(i++));
+				dto.setEmail(rs.getString(i++));
+				dto.setEnabled(rs.getString(i++));
+				dto.setRole(rs.getString(i++));
+				dto.setRegdate(rs.getDate(i++));
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			System.out.println("JDBC실패:getAllUser():"+getClass());
+			e.printStackTrace();
+		}finally {
+			close(rs, psmt, conn);
+		}
+		
+		return list;
+	}
 	//회원 한명에 대한 상세 조회 : select 문 where id
 	//반환타입: LoginDto 하나의 행이 반환
 	public LoginDto getUser(String id){
