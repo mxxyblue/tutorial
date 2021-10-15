@@ -82,6 +82,6 @@ public class Util {
 			for(int i=0; i<depthInt; i++){
 				nbsp+="&nbsp;&nbsp;&nbsp;&nbsp;";
 			}
-			this.arrow=nbsp+(depthInt>0?"<img src='img/arrow2.png'/>":"");
+			this.arrow=nbsp+(depthInt>0?"<img src='img/arrow.png'/>":"");
 		}
 }

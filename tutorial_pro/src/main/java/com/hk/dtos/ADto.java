@@ -38,7 +38,11 @@ public class ADto {
 		this.atitle = atitle;
 		this.acontent = acontent;
 	}
-	
+	public ADto(String atitle, String acontent) {
+		super();
+		this.atitle = atitle;
+		this.acontent = acontent;
+	}
 	public ADto(int aseq, String aid, String atitle, String acontent) {
 		super();
 		this.aseq = aseq;

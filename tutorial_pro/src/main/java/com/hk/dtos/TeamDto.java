@@ -20,6 +20,14 @@ public class TeamDto {
 		this.tutee3 = tutee3;
 		this.tutee4 = tutee4;
 	}
+	public TeamDto(String tutor, String tutee1, String tutee2, String tutee3, String tutee4) {
+		super();
+		this.tutor = tutor;
+		this.tutee1 = tutee1;
+		this.tutee2 = tutee2;
+		this.tutee3 = tutee3;
+		this.tutee4 = tutee4;
+	}
 	public int getTeam() {
 		return team;
 	}

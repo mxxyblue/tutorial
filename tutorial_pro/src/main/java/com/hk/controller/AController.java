@@ -72,8 +72,8 @@ public class AController extends HttpServlet {
 			
 			List<ADto> list=dao.getAllList();
 			request.setAttribute("list", list);
-//			request.getRequestDispatcher("boardlist.jsp").forward(request, response);
-			dispatch("boardlist.jsp", request, response);
+//			request.getRequestDispatcher("Aboardlist.jsp").forward(request, response);
+			dispatch("Aboardlist.jsp", request, response);
 		}else if(command.equals("muldel")) {
 			//������ chk�� ���� ������ ���޵ȴ�. chk=4 chk=5...    chk[4,5,6,8]
 			String[] chks=request.getParameterValues("chk");//���� �̸��� �� �������� ���� ��
@@ -87,7 +87,7 @@ public class AController extends HttpServlet {
 				response.sendRedirect("error.jsp?msg="+msg);
 			}
 		}else if(command.equals("insertform")) {
-			response.sendRedirect("insertboard.jsp");
+			response.sendRedirect("Ainsertboard.jsp");
 		}else if(command.equals("insertboard")) {
 			String id=request.getParameter("id");
 			String title=request.getParameter("title");
@@ -132,7 +132,7 @@ public class AController extends HttpServlet {
 			
 			
 			request.setAttribute("dto", dto);
-			dispatch("detailboard.jsp", request, response);
+			dispatch("Adetailboard.jsp", request, response);
 		}else if(command.equals("replyboard")) {
 			int seq=Integer.parseInt(request.getParameter("seq"));
 			String id=request.getParameter("id");
@@ -149,7 +149,7 @@ public class AController extends HttpServlet {
 			int seq=Integer.parseInt(request.getParameter("seq"));
 			ADto dto = dao.getABoard(seq);
 			request.setAttribute("dto", dto);
-			dispatch("updateboard.jsp",request,response);
+			dispatch("Aupdateboard.jsp",request,response);
 		}else if(command.equals("updateboard")) {
 			int seq=Integer.parseInt(request.getParameter("seq"));
 			String title=request.getParameter("title");
@@ -158,7 +158,7 @@ public class AController extends HttpServlet {
 			boolean isS=dao.updateBoard(new ADto(seq,title,content));
 			
 			if(isS) {
-				//detailboard.jsp:응답할 페이지를 먼저 확인해본다
+				//Adetailboard.jsp:응답할 페이지를 먼저 확인해본다
 				//내가 수정한 글을 바로 조회해서 본다.
 				response.sendRedirect("AController.do?command=detailboard&seq="+seq);
 			}else {
