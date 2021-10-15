@@ -147,63 +147,56 @@ font-family: 'Gaegu', cursive;
 				<img width="200px" height="200px" src="img/logo.png" alt="logo"/>
 				</a>
 	</div>
-	<div id="submenu">
-			<ul>
-			<li><a href="TuController.do?command=boardlist">홍보게시판</a></li>
-			<li><a href="AController.do?command=boardlist">튜터신청게시판</a></li>
-			<li><a href="#">공부게시판</a></li>
-			</ul>
-	</div>
 	<div id="container">
+		<div id="submenu">
+				<ul>
+				<li><a href="TuController.do?command=boardlist">홍보게시판</a></li>
+				<li><a href="AController.do?command=boardlist">튜터신청게시판</a></li>
+				<li><a href="#">공부게시판</a></li>
+				</ul>
+		</div>
 		<div id="main">
 		<h1>★ 팀 설정 ★</h1>
-		<!-- <div id="ajaxform"> -->
-		<!-- 	작성일:<input type="text" id="regdate" /><br/>	 -->
-		<!-- 	작성자:<input type="text" id="id" /><br/> -->
-		<!-- 	제목:<input type="text" id="title" /><br/> -->
-		<!-- 	내용:<textarea rows="2" cols="40" id="contentview"></textarea> -->
-		<!-- </div> -->
-<form action="TeamController.do" method="post" onsubmit="return isChecked()">
-<input type="hidden" name="command" value="updateteamnum"/>
-<table class="table table-hover">
-	<tr>
-		<th><input class="checkbox" type="checkbox" name="all" onclick="allSel(this.checked)"/></th>
-		<th>번호</th>
-		<th>아이디</th>
-		<th>이름</th>
-		<th>등급</th>
-	</tr>
-	<%
-		if(list==null||list.size()==0){
-			%>
+		<form action="TeamController.do" method="post" onsubmit="return isChecked()">
+		<input type="hidden" name="command" value="updateteamnum"/>
+		<table class="table table-hover">
 			<tr>
-				<td colspan="5">----가입한 회원이 없습니다.----</td>
+				<th><input class="checkbox" type="checkbox" name="all" onclick="allSel(this.checked)"/></th>
+				<th>번호</th>
+				<th>아이디</th>
+				<th>이름</th>
+				<th>등급</th>
 			</tr>
 			<%
-		}else{
-			for(int i=0;i<list.size();i++){
-				LoginDto dto = list.get(i);
-				%>
-				<tr>
-					<td><input class="checkbox" type="checkbox" name="chk" value="<%=dto.getId()%>"/></td>
-					<td><%=i+1%></td>
-					<td><%=dto.getId()%></td>
-					<td><%=dto.getName()%></td>
-					<td><%=getRoleName(dto.getRole())%></td>
-				</tr>
-				<%
-			}
-		}
-	%>
-	<tr>
-		<td colspan="10">
-			<input class="btn btn-default" type="submit" value="팀생성">
-		</td>
-	</tr>
-	
-</table>
-</form>
-</div>
+				if(list==null||list.size()==0){
+					%>
+					<tr>
+						<td colspan="5">----가입한 회원이 없습니다.----</td>
+					</tr>
+					<%
+				}else{
+					for(int i=0;i<list.size();i++){
+						LoginDto dto = list.get(i);
+						%>
+						<tr>
+							<td><input class="checkbox" type="checkbox" name="chk" value="<%=dto.getId()%>"/></td>
+							<td><%=i+1%></td>
+							<td><%=dto.getId()%></td>
+							<td><%=dto.getName()%></td>
+							<td><%=getRoleName(dto.getRole())%></td>
+						</tr>
+						<%
+					}
+				}
+			%>
+			<tr>
+				<td colspan="10">
+					<input class="btn btn-default" type="submit" value="팀생성">
+				</td>
+			</tr>
+			
+		</table>
+		</form>
 	</div>
 	<div id="login">
 			<ul>
@@ -214,6 +207,7 @@ font-family: 'Gaegu', cursive;
 				<li><a href="LoginController.do?command=logout">로그아웃</a></li>
 			</ul>
 	</div>
+</div>
 	
 </div>
 <div id="footer">주소: 서울특별시 영등포구 양평동3가 15-1 4층</div>

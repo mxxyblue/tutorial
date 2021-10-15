@@ -61,21 +61,7 @@
 	
 </script>
 <style type="text/css">
-/* 	#tablebox{ */
-/* 		width: 800px ; */
-/* 		margin: 0 auto; */
-/* 	} */
-	
-/* 	#ajaxform{ */
-/* 		width:600px; */
-/*  		margin-left: 450px;  */
-/* 	} */
 
-	#login >ul{list-style:none;}
-	#login> ul >li{margin-right:50px; font-size: 15px;}
-	
-	#submenu >ul{list-style:none;}
-	#submenu> ul >li{margin-right:50px; font-size: 15px;}
 	
 	#main >ul{ list-style:none;}
 	
@@ -85,18 +71,158 @@
 }
 
 	
-	#submenu, #main, #login{
+	#menu, #main, #login{
 	margin: 10px auto;
 }
 	
-	#submenu {
-	float: left;
-	width: 14%;
-	height:500px;
-	background-color:#0074BB;
-	text-align: center;
+	/* 메뉴 시작 */
+	:before, :after {
+	  box-sizing: border-box;
+	}
 	
-}
+	.unstyled {
+	  list-style: none;
+	  padding: 0;
+	  margin: 0;
+	}
+	.unstyled a {
+	  text-decoration: none;
+	}
+	
+	.list-inline {
+	  overflow: hidden;
+	}
+	.list-inline li {
+	  float: left;
+	}
+	
+	#menu {  
+	  	float: left;
+		width: 14%;
+		height:500px;
+		background-color:#0074BB;
+		text-align: center;
+		
+	}
+	
+	.logo {
+	  text-transform: lowercase;
+	  font: 300 2em "Source Sans Pro", Helvetica, Arial, sans-serif;
+	  text-align: center;
+	  padding: 0;
+	  margin: 0;
+	  color: white;
+	}
+
+	.logo span {
+	  font-weight: 700;
+	  transition: .15s linear color;
+	  padding: 10px;
+	}
+	
+	.main-nav ul {
+	  border-top: solid 1px #0074BB;
+	}
+	.main-nav li {
+	  border-bottom: solid 1px #0074BB;
+	}
+	.main-nav a {
+	  padding: 1.1em 0;
+	  color: #DFDBD9;
+	  font: 400 1.125em "Source Sans Pro", Helvetica, Arial, sans-serif;
+	  text-align: center;
+	  text-transform: lowercase;
+	}
+	.main-nav a:hover {
+	  color: #fff;
+	}
+	
+	
+	.list-hover-slide li {
+	  position: relative;
+	  overflow: hidden;
+	}
+	.list-hover-slide a {
+	  display: block;
+	  position: relative;
+	  z-index: 1;
+	  transition: .35s ease color;
+	}
+	.list-hover-slide a:before {
+	  content: '';
+	  display: block;
+	  z-index: -1;
+	  position: absolute;
+	  left: -100%;
+	  top: 0;
+	  width: 100%;
+	  height: 100%;
+	  border-right: solid 5px #F186B6; 
+	  background: #0074BB;
+	  transition: .35s ease left;
+	}
+	.list-hover-slide a.is-current:before, .list-hover-slide a:hover:before {
+	  left: 0;
+	}
+/* 메뉴 끝 */
+/* 두번쨰 메뉴 시작 */
+
+	.main-nav2 ul {
+	  border-top: solid 1px #F186B6;
+	}
+	.main-nav2 li {
+	  border-bottom: solid 1px #F186B6;
+	}
+	.main-nav2 a {
+	  padding: 1.1em 0;
+	  color: #fff;
+	  font: 400 1.125em "Source Sans Pro", Helvetica, Arial, sans-serif;
+	  text-align: center;
+	  text-transform: lowercase;
+	}
+	.main-nav2 a:hover {
+	  color: #DFDBD9;
+	}
+	
+	
+	.list-hover-slide2 li {
+	  position: relative;
+	  overflow: hidden;
+	}
+	.list-hover-slide2 a {
+	  display: block;
+	  position: relative;
+	  z-index: 1;
+	  transition: .35s ease color;
+	}
+	.list-hover-slide2 a:before {
+	  content: '';
+	  display: block;
+	  z-index: -1;
+	  position: absolute;
+	  left: -100%;
+	  top: 0;
+	  width: 100%;
+	  height: 100%;
+	  border-right: solid 5px #0074BB; 
+	  background: #F186B6;
+	  transition: .35s ease left;
+	}
+	.list-hover-slide2 a.is-current:before, .list-hover-slide2 a:hover:before {
+	  left: 0;
+	  }
+	  
+	 #login{
+	margin-left:10px;
+	float: left;
+	width: 12%;
+/* 	height:500px; */
+ 	text-align: center; 
+	position: relative;
+	background-color: #F186B6;
+	
+	}
+/* 두번째 메뉴 끝 */
 	
 	#main{
 	margin-left:10px;
@@ -108,16 +234,7 @@
 	background-color: #F2F2F2;
 }
 	
-	#login{
-	margin-left:10px;
-	float: left;
-	width: 12%;
-/* 	height:500px; */
- 	text-align: center; 
-	position: relative;
-	background-color: #F186B6;
-	
-	}
+
 	
 	#footer {
 	color:#523D02;
@@ -166,22 +283,21 @@ font-family: 'Gaegu', cursive;
 				<img width="200px" height="200px" src="img/logo.png" alt="logo"/>
 				</a>
 	</div>
-	<div id="submenu">
-			<ul>
-			<li><a href="TuController.do?command=boardlist">홍보게시판</a></li>
-			<li><a href="#">튜터신청게시판</a></li>
-			<li><a href="#">공부게시판</a></li>
-			</ul>
-	</div>
 	<div id="container">
+	<div id="menu" role="banner">
+			  <br>
+			  <div class="nav-wrap">
+			    <nav class="main-nav" role="navigation">
+			      <ul class="unstyled list-hover-slide">
+			        <li><a href="TuController.do?command=boardlist">홍보게시판</a></li>
+			        <li><a href="AController.do?command=boardlist">튜터신청게시판</a></li>
+			        <li><a href="#">공부게시판</a></li>
+			      </ul>
+			    </nav>
+			  </div>
+		</div>
 		<div id="main">
 		<h1>★ 튜터 / 튜티 홍보 ★</h1>
-		<!-- <div id="ajaxform"> -->
-		<!-- 	작성일:<input type="text" id="regdate" /><br/>	 -->
-		<!-- 	작성자:<input type="text" id="id" /><br/> -->
-		<!-- 	제목:<input type="text" id="title" /><br/> -->
-		<!-- 	내용:<textarea rows="2" cols="40" id="contentview"></textarea> -->
-		<!-- </div> -->
 		
 		<form action="TuController.do" method="post" onsubmit="return isChecked()">
 		<input type="hidden" name="command" value="muldel"/>
@@ -249,15 +365,20 @@ font-family: 'Gaegu', cursive;
 		</table>
 		</form>
 		</div>
-	</div>
-	<div id="login">
-			<ul>
-				<li><%=ldto.getName() %>님</li><li>반갑습니다~</li>
+	<div id="login" role="banner">
+		<br>
+		<div class="nav-wrap">
+			<nav class="main-nav2" role="navigation">
+			    <ul class="unstyled list-hover-slide2">
+				<li style="color: white; font-weight: bold;"><%=ldto.getName() %>님</li><li>반갑습니다~</li>
 				<li>등급:<%=ldto.getRole().equals("TUTOR")?"튜터★":"튜티★"%></li>
 				<br>
 				<li><a href="userinfo.jsp?id=<%=ldto.getId()%>">마이페이지</a></li>
 				<li><a href="LoginController.do?command=logout">로그아웃</a></li>
 			</ul>
+			</nav>
+		</div>
+	</div>
 	</div>
 	
 </div>
