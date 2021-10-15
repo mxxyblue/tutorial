@@ -46,7 +46,7 @@ public class TeamDto {
 	public void setTutee1(String tutee1) {
 		this.tutee1 = tutee1;
 	}
-	public String getTutee2() {
+	public String getTutee2() { 
 		return tutee2;
 	}
 	public void setTutee2(String tutee2) {

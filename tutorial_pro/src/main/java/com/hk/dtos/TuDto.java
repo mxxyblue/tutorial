@@ -15,7 +15,7 @@ public class TuDto {
 	private int tdepth;
 	private int treadcount;
 	private String tdelflag;
-	public TuDto() {
+	public TuDto() { 
 		super();
 		// TODO Auto-generated constructor stub
 	}

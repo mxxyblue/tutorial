@@ -30,7 +30,7 @@ public class LoginDto {
 		this.email = email;
 		this.enabled = enabled;
 		this.role = role;
-		this.regdate = regdate;
+		this.regdate = regdate; 
 	}
 
 	public LoginDto(String id,String address, String phone, String email) {
