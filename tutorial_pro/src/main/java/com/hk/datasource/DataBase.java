@@ -23,8 +23,8 @@ public class DataBase {
       //2단계: DB 연결
    public Connection getConnection() throws SQLException {
       String url="jdbc:oracle:thin:@localhost:1521:xe";
-      String user="hk10";
-      String password="hk10";
+      String user="hk";
+      String password="hk";
       return DriverManager.getConnection(url, user, password);
    }
    
