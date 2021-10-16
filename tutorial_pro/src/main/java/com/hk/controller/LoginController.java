@@ -40,7 +40,7 @@ public class LoginController extends HttpServlet {
 				request.getSession().setMaxInactiveInterval(10*60);
 				
 				if(ldto.getRole().toUpperCase().equals("ADMIN")) {
-					response.sendRedirect("admin_main.jsp");
+					response.sendRedirect("TuController.do?command=adminmain");
 				}else if(ldto.getRole().toUpperCase().equals("TUTOR")) {
 					response.sendRedirect("TuController.do?command=main2");
 				}else if(ldto.getRole().toUpperCase().equals("TUTEE")) {

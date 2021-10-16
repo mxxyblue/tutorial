@@ -7,6 +7,7 @@
 <%@page import="com.hk.dtos.LoginDto"%>
 <%@page import="com.hk.daos.LoginDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=UTF-8"); %>
 <%@include file="header.jsp" %>
@@ -231,6 +232,17 @@ table{width: 50px;}
 	String id=request.getParameter("id");
 	LoginDao2 dao = LoginDao2.getLoginDao();
 	LoginDto dto=dao.getUser(id);
+	LoginDto ldto=(LoginDto)session.getAttribute("ldto");
+%>
+<%
+	String finalRole;
+	if(ldto.getRole().equals("TUTOR")){
+		finalRole="튜터★";
+}else if(ldto.getRole().equals("TUTEE")){
+	finalRole="튜티★";
+}else{
+	finalRole="관리자";
+}
 %>
 <body>
 <div id="wrap">
@@ -290,20 +302,42 @@ table{width: 50px;}
 			</div>
 		</div>
 	</div>
-	<div id="login" role="banner">
-		<br>
-		<div class="nav-wrap">
-			<nav class="main-nav2" role="navigation">
-			    <ul class="unstyled list-hover-slide2">
-				<li style="color: white; font-weight: bold;"><%=dto.getName() %>님</li><li>반갑습니다~</li>
-				<li>등급:<%=dto.getRole().equals("TUTOR")?"튜터★":"튜티★"%></li>
+	<c:choose>
+		<c:when test="${ldto.role eq 'ADMIN'}"> 
+				<div id="login" role="banner">
+					<br>
+					<div class="nav-wrap">
+						<nav class="main-nav2" role="navigation">
+						    <ul class="unstyled list-hover-slide2">
+							<li style="color: white; font-weight: bold;"><%=ldto.getName()%>님</li><li>반갑습니다~</li>
+							<li>등급:<%=finalRole%></li>
+							<br>
+							<li><a href="userlist_status.jsp">회원정보조회</a></li>
+							<li><a href="userlist.jsp">회원등급변경</a></li>
+							<li><a href="updateteamnum.jsp">튜터링팀생성</a></li>
+							<li><a href="LoginController.do?command=logout">로그아웃</a></li>
+						</ul>
+						</nav>
+					</div>
+				</div>
+		</c:when>
+		<c:otherwise>
+				<div id="login" role="banner">
 				<br>
-				<li><a href="userinfo.jsp?id=<%=dto.getId()%>">마이페이지</a></li>
-				<li><a href="LoginController.do?command=logout">로그아웃</a></li>
-			</ul>
-			</nav>
-		</div>
-	</div>
+				<div class="nav-wrap">
+					<nav class="main-nav2" role="navigation">
+					    <ul class="unstyled list-hover-slide2">
+						<li style="color: white; font-weight: bold;"><%=ldto.getName() %>님</li><li>반갑습니다~</li>
+						<li>등급:<%=finalRole%></li>
+						<br>
+						<li><a href="userinfo.jsp?id=<%=ldto.getId()%>">마이페이지</a></li>
+						<li><a href="LoginController.do?command=logout">로그아웃</a></li>
+					</ul>
+					</nav>
+				</div>
+			</div>
+		</c:otherwise>
+	</c:choose>
 </div>
 <div id="footer">주소: 서울특별시 영등포구 양평동3가 15-1 4층</div>
 </body>

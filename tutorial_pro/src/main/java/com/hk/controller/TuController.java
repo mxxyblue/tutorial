@@ -203,6 +203,11 @@ public class TuController extends HttpServlet {
 			List<TuDto> list=dao.getRecentList();
 			request.setAttribute("list", list);
 			dispatch("index3.jsp", request, response);
+			
+		}else if(command.equals("adminmain")) { //로그인 후
+			List<TuDto> list=dao.getRecentList();
+			request.setAttribute("list", list);
+			dispatch("admin_main.jsp", request, response);
 		}
 	}
 

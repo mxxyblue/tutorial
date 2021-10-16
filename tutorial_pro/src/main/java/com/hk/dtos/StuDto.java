@@ -17,7 +17,7 @@ public class StuDto {
 	private int teamnum;
 	public StuDto() {
 		super();
-		// TODO Auto-generated constructor stub
+		// TODO Auto-generated constructor stub 
 	}
 	public StuDto(int sseq, String sid, String stitle, String scontent, Date sregdate, int srefer, int sstep,
 			int sdepth, int sreadcount, String sdelflag, int teamnum) {

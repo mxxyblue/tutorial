@@ -106,7 +106,7 @@ public class ADto {
 		this.adepth = adepth;
 	}
 	public int getAreadcount() {
-		return areadcount;
+		return areadcount; 
 	}
 	public void setAreadcount(int areadcount) {
 		this.areadcount = areadcount;

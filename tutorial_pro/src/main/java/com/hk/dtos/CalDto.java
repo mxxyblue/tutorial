@@ -19,7 +19,7 @@ public class CalDto {
 	}
 	
 	public CalDto(int cseq, String id, String caltitle, String calcontent, String mdate, Date calregdate) {
-		super();
+		super(); 
 		this.cseq = cseq;
 		this.id = id;
 		this.caltitle = caltitle;
