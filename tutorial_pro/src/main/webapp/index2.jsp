@@ -253,7 +253,7 @@ font-family: 'Gaegu', cursive;
 			  </div>
 		</div>
 		<div id="main">
-			<h1>★ 튜터 / 튜티 홍보 ★</h1>
+<!-- 			<h1>★ 튜터 / 튜티 홍보 ★</h1> -->
 			<c:forEach items="${list}" var="dto">
 			<div class="box1">
 				<table class="table table-hover">
