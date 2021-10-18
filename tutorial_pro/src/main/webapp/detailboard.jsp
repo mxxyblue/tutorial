@@ -308,7 +308,7 @@ font-family: 'Gaegu', cursive;
 						<td><textarea required="required" rows="10" cols="60" name="content" class="form-control"></textarea> </td>
 					</tr>
 					<tr>
-						<td colspan="2"><input type="submit" value="답글추가" class="btn btn-primary"/></td>
+						<td colspan="2"><input type="submit" value="답글추가" class="btn btn-default"/></td>
 					</tr>
 				</table>
 			</form>
