@@ -11,6 +11,7 @@
 <title>수정하기폼</title>
 <style type="text/css">
 
+*{font-family: 'Gothic A1', sans-serif;}
 
 #main >ul{ list-style:none;}
 
