@@ -271,8 +271,11 @@ font-family: 'Gaegu', cursive;
 				<td><textarea required="required" rows="10" cols="60" name="content" class="form-control"></textarea> </td>
 			</tr>
 			<tr>
+				<th>첨부파일</th>
+				<td><input type="file" name="filename" class="btn btn-default"/></td>
+			</tr>
+			<tr>
 				<td colspan="2">
-						<input type="file" value="파일첨부" name="filename" class="btn btn-primary"/> 
 						<input type="submit" value="글추가" class="btn btn-default"/>
 						<input type="button" value="글목록" class="btn btn-default"
 																onclick="boardList()"/>
