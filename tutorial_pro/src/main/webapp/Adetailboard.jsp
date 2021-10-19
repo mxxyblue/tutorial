@@ -264,7 +264,14 @@ font-family: 'Gaegu', cursive;
 			<tr>
 				<td colspan="2">
 					<button type="button" class="btn btn-default" onclick="updateForm(${dto.aseq})">수정</button>
-					<button type="button" class="btn btn-default" onclick="delBoard(${dto.aseq})">삭제</button>
+					<c:choose>
+						<c:when test="${ldto.id eq dto.aid || ldto.role eq 'ADMIN' }">
+							<button type="button" class="btn btn-default" onclick="delBoard(${dto.aseq})">삭제</button>
+						</c:when>
+						<c:otherwise>
+							<button type="button" class="btn btn-default" disabled="disabled" onclick="delBoard(${dto.aseq})">삭제</button>
+						</c:otherwise>
+					</c:choose>
 					<button type="button" class="btn btn-default" onclick="replyForm()">답글</button>
 					<button type="button" class="btn btn-default" onclick="boardList()">목록</button>
 				</td>
