@@ -347,10 +347,7 @@ font-family: 'Gaegu', cursive;
 											</c:otherwise>
 										</c:choose>
 									</td>					
-								</c:when>
-								<c:otherwise>
-									<td style="width:300px;">--삭제된 글입니다.--</td>
-								</c:otherwise>            								
+								</c:when>         								
 							</c:choose>
 							<td>${dto.aregdate}</td>
 							<td>${dto.areadcount}</td>
