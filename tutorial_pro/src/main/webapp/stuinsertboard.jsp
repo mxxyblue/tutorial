@@ -105,8 +105,8 @@ font-family: 'Gaegu', cursive;
 		<div id="submenu">
 				<ul>
 				<li><a href="TuController.do?command=boardlist">홍보게시판</a></li>
-				<li><a href="#">튜터신청게시판</a></li>
-				<li><a href="#">공부게시판</a></li>
+				<li><a href="AController.do?command=boardlist">튜터신청게시판</a></li>
+				<li><a href="StuController.do?command=boardlist">공부게시판</a></li>
 				</ul>
 		</div>
 		<div id="main">
