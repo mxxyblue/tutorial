@@ -255,7 +255,7 @@ font-family: 'Gaegu', cursive;
 		</div>
 		<div id="main">
 	<h1>게시글 추가하기</h1>
-	<form action="AController.do" method="post">
+	<form action="AController.do" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="command" value="insertboard"/>
 		<table class="table table-hover">
 			<tr>
