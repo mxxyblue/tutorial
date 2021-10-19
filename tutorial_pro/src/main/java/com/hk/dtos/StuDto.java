@@ -34,6 +34,26 @@ public class StuDto {
 		this.sdelflag = sdelflag;
 		this.teamnum = teamnum;
 	}
+	
+	public StuDto(int sseq, String stitle, String scontent) {
+		super();
+		this.sseq = sseq;
+		this.stitle = stitle;
+		this.scontent = scontent;
+	}
+	public StuDto(int sseq, String sid, String stitle, String scontent) {
+		super();
+		this.sseq = sseq;
+		this.sid = sid;
+		this.stitle = stitle;
+		this.scontent = scontent;
+	}
+	public StuDto(String sid, String stitle, String scontent) {
+		super();
+		this.sid = sid;
+		this.stitle = stitle;
+		this.scontent = scontent;
+	}
 	public int getSseq() {
 		return sseq;
 	}

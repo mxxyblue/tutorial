@@ -179,7 +179,7 @@
 	
 </table>
 <br/>
-<a href="user_main.jsp" id="remain">메인으로</a>
+<a href="TuController.do?command=main2" id="remain">메인으로</a>
 
 <script type="text/javascript">
 	function penChg(){

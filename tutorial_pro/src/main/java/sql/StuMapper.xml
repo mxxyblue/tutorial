@@ -2,7 +2,82 @@
 <!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.hk.stuboard">
+	<select id="stuboardlist" resultType="stuDto" parameterType="String">
+		SELECT SSEQ,SID,STITLE,SCONTENT,SREGDATE,SREFER,SSTEP,SDEPTH,SREADCOUNT,SDELFLAG, TEAMNUM
+		FROM SBOARD
+		WHERE TEAMNUM = (SELECT TEAMNUM FROM TEAM WHERE TUTOR = #{id} OR TUTEE1 = #{id} OR TUTEE2 = #{id})
+<!-- 		<where> -->
+<!-- 			<if test="sseq!=null"> -->
+<!-- 				 SSEQ=#{sseq} -->
+<!-- 				 AND TEAMNUM = (SELECT TEAMNUM FROM TEAM WHERE #{sid}=TUTOR OR #{sid}=TUTEE1 OR #{sid}=TUTEE2)	 -->
+<!-- 			</if>  -->
+<!-- 			<if test="sid!=null">	 -->
+<!-- 				TEAMNUM = (SELECT TEAMNUM FROM TEAM WHERE #{sid}=TUTOR OR #{sid}=TUTEE1 OR #{sid}=TUTEE2)	 -->
+<!-- 			</if> -->
+<!-- 		</where> -->
+		ORDER BY SREFER DESC,SSTEP 
+	</select>
+
+	<insert id="insertboard" parameterType="stuDto">
+		INSERT INTO SBOARD
+		VALUES (sboard_seq.nextval, #{sid},#{stitle},#{scontent},SYSDATE
+	, (SELECT NVL(max(SREFER),0)+1 FROM SBOARD),0,0,0,'N',
+	(SELECT TEAMNUM FROM TEAM WHERE #{sid}=TUTOR OR #{sid}=TUTEE1 OR #{sid}=TUTEE2 OR #{sid}=TUTEE3 OR #{sid}=TUTEE4))
+	</insert>
 	
+	<update id="updateboard" parameterType="stuDto">
+		UPDATE SBOARD
+		SET STITLE=#{stitle}, SCONTENT=#{scontent},SREGDATE=SYSDATE 
+		WHERE SSEQ=#{sseq} 
+	</update>
+	
+
+	<delete id="delboard" parameterType="Map">
+		DELETE FROM SBOARD 
+		WHERE SSEQ IN
+		<foreach collection="seqs" item="sseq" open="(" close=")" separator=","> 
+			#{sseq}
+ 		</foreach>
+	</delete>
+	
+	
+	<update id="readcount" parameterType="int">
+		<![CDATA[
+		UPDATE SBOARD
+		SET SREADCOUNT=sREADCOUNT+1 
+		WHERE SSEQ=#{sseq}
+		]]>
+	</update>
+	
+	<update id="replyupdate" parameterType="stuDto">
+		<![CDATA[
+		 UPDATE SBOARD
+		 SET SSTEP=SSTEP+1 
+		 WHERE SREFER=(SELECT SREFER FROM SBOARD WHERE SSEQ = #{sseq}) 
+		 AND SSTEP > (SELECT SSTEP FROM SBOARD WHERE SSEQ = #{sseq})
+		 ]]>
+	</update>
+	
+	<insert id="replyinsert" parameterType="stuDto">
+		INSERT INTO SBOARD
+		VALUES(SBOARD_SEQ.NEXTVAL,#{sid},#{stitle},#{scontent},SYSDATE 
+		,(SELECT SREFER FROM SBOARD WHERE SSEQ=#{sseq})
+		,(SELECT SSTEP FROM SBOARD WHERE SSEQ=#{sseq})+1 
+		,(SELECT SDEPTH FROM SBOARD WHERE SSEQ=#{sseq})+1, 0, 'N')
+	</insert>
+	
+	<select id="recentlist" resultType="stuDto" parameterType="Map">
+		<![CDATA[
+		SELECT SSEQ,SID,STITLE,SCONTENT,SREGDATE,SREFER,SSTEP,SDEPTH,SREADCOUNT,SDELFLAG 
+		FROM 
+		 (
+	 	SELECT *
+		FROM SBOARD
+		ORDER BY SREGDATE DESC
+		 )
+		WHERE ROWNUM <= 6 AND SSTEP=0
+		]]>
+	</select>
 	
 </mapper>
 

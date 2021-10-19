@@ -35,7 +35,7 @@
 	
 	<insert id="calInsert" parameterType="calDto">
 		INSERT INTO CBOARD VALUES(CALBOARD_SEQ.NEXTVAL,
-		#{id},#{caltitle},#{calcontent},#{mdate},SYSDATE)
+		#{id},#{caltitle},#{calcontent},#{mdate},SYSDATE,2)
 	</insert>
 	
 	<select id="getCalBoardList" parameterType="Map" resultMap="calDtoMap">
