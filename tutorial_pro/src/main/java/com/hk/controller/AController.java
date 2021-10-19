@@ -60,7 +60,7 @@ public class AController extends HttpServlet {
       if(command==null) {
          MultipartRequest multi=null;         
 
-<<<<<<< HEAD
+
 			String saveDirectory="C:/Academy/eclipse-workspace/tutorial_test/src/main/webapp/upload";
 			
 			//1024byte --> 1kbyte --> 1024kb --> 1MB
@@ -95,7 +95,7 @@ public class AController extends HttpServlet {
 			File newFile=new File(saveDirectory+"/"+stored_fname);
 			oldFile.renameTo(newFile);//old--> new�� ���ϸ� �ٲ�
 			
-=======
+
          String saveDirectory="C:/Users/HYO LYN KIM/eclipse-workspace/tutorial_test"
                + "/src/main/webapp/upload";
          
@@ -116,9 +116,9 @@ public class AController extends HttpServlet {
          
          boolean isS=dao.insertBoard(new ADto(id,title,content));
          
-         String origin_fname=multi.getOriginalFileName("filename");//   ε  Ҷ         ϸ  ϱ 
+         String origin_fname=multi.getOriginalFileName("filename");
          
-         //String random32= UUID.randomUUID().toString().replaceAll("-", "");//"-"     ϰ  32 ڸ        
+           
          String stored_fname=origin_fname.substring(origin_fname.lastIndexOf("."));
                                                    // "123.jpg".substring(3) --> ".jpg"
          
@@ -131,7 +131,7 @@ public class AController extends HttpServlet {
          File newFile=new File(saveDirectory+"/"+stored_fname);
          oldFile.renameTo(newFile);//old--> new      ϸ   ٲ 
          
->>>>>>> branch 'main' of https://github.com/mxxyblue/tutorial.git
+
 
          if(isS) {
             response.sendRedirect("AController.do?command=boardlist");
@@ -212,7 +212,7 @@ public class AController extends HttpServlet {
          }
          //------  ȸ    ø    Ҷ  Ȯ    ڵ      ---------//
 
-<<<<<<< HEAD
+
 			
 //			List<FileDto> list=fdao.getFileList();//file ��� ����
 //			request.setAttribute("list", list);
@@ -319,7 +319,7 @@ public class AController extends HttpServlet {
 			dto.setAregdateStr(regdateStr);
 			dto.setAregdateStr(regdateStr);
 			dto.setAregdate(null);
-=======
+
          
 //         List<FileDto> list=fdao.getFileList();//file         
 //         request.setAttribute("list", list);
@@ -433,7 +433,7 @@ public class AController extends HttpServlet {
          dto.setAregdateStr(regdateStr);
          dto.setAregdateStr(regdateStr);
          dto.setAregdate(null);
->>>>>>> branch 'main' of https://github.com/mxxyblue/tutorial.git
+
 //-----------간단한 값 하나 응답할 때 text 타입 예시
          //요청한 페이지 응답하는 코드
          PrintWriter pw=response.getWriter();
