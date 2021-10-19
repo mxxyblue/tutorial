@@ -1,8 +1,5 @@
 package com.hk.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
@@ -11,10 +8,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -23,11 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.hk.daos.ADao;
-import com.hk.daos.FileDao;
 import com.hk.dtos.ADto;
-import com.hk.dtos.FileDto;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import net.sf.json.JSONObject;
 
@@ -54,55 +45,10 @@ public class AController extends HttpServlet {
 		
 		//�̱�������
 		ADao dao=ADao.getADao();
-		FileDao fdao=new FileDao();
 		//session��ü ����
 		HttpSession session=request.getSession();
-		if(command==null) {
-			MultipartRequest multi=null;			
-
-			String saveDirectory="C:/Users/HYO LYN KIM/eclipse-workspace/tutorial_test"
-					+ "/src/main/webapp/upload";
-			
-			//1024byte --> 1kbyte --> 1024kb --> 1MB
-			int maxPostSize=1024*1024*10;
-			
-			try {
-				multi=new MultipartRequest(request, saveDirectory, maxPostSize, "utf-8",
-						                    new DefaultFileRenamePolicy());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			String id=multi.getParameter("id");
-			String title=multi.getParameter("title");
-			String content=multi.getParameter("content");
-			
-			boolean isS=dao.insertBoard(new ADto(id,title,content));
-			
-			String origin_fname=multi.getOriginalFileName("filename");//���ε��Ҷ� �������ϸ��ϱ�
-			
-			//String random32= UUID.randomUUID().toString().replaceAll("-", "");//"-"�����ϰ� 32�ڸ� ������
-			String stored_fname=origin_fname.substring(origin_fname.lastIndexOf("."));
-			                                          // "123.jpg".substring(3) --> ".jpg"
-			
-			int file_size=(int)multi.getFile("filename").length();// file.length() ��ȯŸ�� long
-			
-			boolean fisS=fdao.insertFileInfo(
-					new FileDto(origin_fname,file_size));
-			
-			File oldFile=new File(saveDirectory+"/"+multi.getFilesystemName("filename"));
-			File newFile=new File(saveDirectory+"/"+stored_fname);
-			oldFile.renameTo(newFile);//old--> new�� ���ϸ� �ٲ�
-			
-
-			if(isS) {
-				response.sendRedirect("AController.do?command=boardlist");
-			}else {
-				response.sendRedirect("error.jsp?msg="+URLEncoder.encode("3","utf-8"));
-			}
-		}
-		else if(command.equals("boardlist")) {
+		
+		if(command.equals("boardlist")) {
 //------��ȸ�� ó�� �ڵ� ����-------			
 			//�۸���� ��û�ϸ� session �Ǵ� cookie�� ��������
 			//1.session�����ϱ�
@@ -142,6 +88,17 @@ public class AController extends HttpServlet {
 			}
 		}else if(command.equals("insertform")) {
 			response.sendRedirect("Ainsertboard.jsp");
+		}else if(command.equals("insertboard")) {
+			String id=request.getParameter("id");
+			String title=request.getParameter("title");
+			String content=request.getParameter("content");
+			
+			boolean isS=dao.insertBoard(new ADto(id,title,content));
+			if(isS) {
+				response.sendRedirect("AController.do?command=boardlist");
+			}else {
+				response.sendRedirect("error.jsp?msg="+URLEncoder.encode("3","utf-8"));
+			}
 		}else if(command.equals("detailboard")) {//�� �󼼺���(��ȸ�� ����)
 			int seq=Integer.parseInt(request.getParameter("seq"));
 			ADto dto=dao.getABoard(seq);
@@ -152,9 +109,6 @@ public class AController extends HttpServlet {
 //				session.setAttribute("readcount", "readcount");
 //				dao.readCount(seq);//��ȸ�� �ø���
 //			}
-			
-			FileDto fdto = fdao.getFileInfo(seq);
-			request.setAttribute("fdto", fdto);
 			
 			//��Ű�� ������ ��������(��ȯŸ��:�迭)
 			Cookie[] cookies=request.getCookies();
@@ -174,71 +128,11 @@ public class AController extends HttpServlet {
 				dao.readCount(seq);//��ȸ������
 			}
 			//------��ȸ�� �ø����Ҷ� Ȯ�� �ڵ� ����---------//
-
 			
-//			List<FileDto> list=fdao.getFileList();//file ��� ����
-//			request.setAttribute("list", list);
-//			request.getRequestDispatcher("Adetailboard.jsp").forward(request, response);
+			
 			
 			request.setAttribute("dto", dto);
 			dispatch("Adetailboard.jsp", request, response);
-		}else if(command.equals("download")) {//���� �ٿ�ε��ϱ�
-			//�ٿ�ε� ��û ���� ������ DB���� ��������
-			int seq=Integer.parseInt(request.getParameter("aseq"));
-			FileDto dto=fdao.getFileInfo(seq);
-			
-			//���� ���� ���
-			String saveDirectory="C:/Users/HYO LYN KIM/eclipse-workspace/tutorial_test"
-					+ "/src/main/webapp/upload";
-			
-			String filePath=saveDirectory+"/"+dto.getAorigin_fname();
-			
-			File file=new File(filePath);//File��ü ����
-			
-//			int [] i=new int[3];//[0,0,0]
-//			int []ii={1,2,3,4,5};
-			//java�� �ѹ��� ���� �� �ִ� ���� ũ�⸸ŭ �迭�� ����
-			byte[] b=new byte[(int)file.length()];
-			
-			//�������� ������ �� ������ �ʱ�ȭ
-			response.reset();
-			
-			//�ٿ�ε��ϴ� ������ ������ �𸥴ٸ� octet-stream �����Ѵ�.
-			//��) application/msword
-			response.setContentType("application/octet-stream");
-			
-			//�ѱ����ڵ� : �ѱ����Ͽ� ��� �̸��� ������ ���� ����
-			String encoding=new String(dto.getAorigin_fname().getBytes("utf-8"),"8859_1");
-			
-			//������ �ٿ�ε� ��ư�� Ŭ������ �� �ٿ�ε� ����ȭ���� �������� ó��
-			//���ϸ��� �������ϸ����� �ٲ��ִ� �ڵ�
-			response.setHeader("Content-Disposition", "attachment; filename="+encoding);
-			
-			FileInputStream in =null;//������ �о���̱� ���� ��ü(�Է�)
-			ServletOutputStream out=null;//�������� ���� ��ü(���)
-			
-			try {
-				//file�� �о���̱� ���� �������� �غ��Ѵ�.
-				in=new FileInputStream(file);
-				
-				//����� ���� �������� �غ��Ѵ�.
-				out=response.getOutputStream();
-				
-				//�о���̴� ���� ������ ����
-				int numRead=0;
-				//read()�� ���� ���� �о����
-				while((numRead=in.read(b, 0, b.length))!=-1) {
-					//write()�� ���� ���� ����ϱ�
-					out.write(b, 0, numRead);
-				}
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally {
-				out.flush();//���� �����Ͱ� ������ ��� �� �о�� ��������
-				out.close();//out��ü �ݱ�
-				in.close();//in��ü �ݱ�
-			}
 		}else if(command.equals("replyboard")) {
 			int seq=Integer.parseInt(request.getParameter("seq"));
 			String id=request.getParameter("id");
