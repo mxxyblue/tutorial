@@ -29,7 +29,12 @@ public class FileDto {
 		this.aorigin_fname = aorigin_fname;
 		this.afile_size = afile_size;
 	}
-	
+	public FileDto(String aorigin_fname, int afile_size, int aseq) {
+		super();
+		this.aorigin_fname = aorigin_fname;
+		this.afile_size = afile_size;
+		this.aseq=aseq;
+	}
 	public int getFseq() {
 		return fseq;
 	}

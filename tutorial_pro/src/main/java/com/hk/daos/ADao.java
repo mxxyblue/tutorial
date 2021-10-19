@@ -159,20 +159,26 @@ public class ADao extends DataBase{
 		int count=0;
 		Connection conn=null;
 		PreparedStatement psmt=null;
+		PreparedStatement fpsmt=null;
 //		ResultSet rs=null;
 		
-		String sql=" UPDATE ABOARD "
-				 + " SET ADELFLAG = 'Y' "
+		String sql=" DELETE FROM ABOARD "
+				 + " WHERE ASEQ IN ("+String.join(",", seqs)+") ";
+		                                 // seqs[1,2,3,4]  ---> "WHERE SEQ IN (1,2,3,4)"
+		String fsql=" DELETE FROM AFILEBOARD "
 				 + " WHERE ASEQ IN ("+String.join(",", seqs)+") ";
 		                                 // seqs[1,2,3,4]  ---> "WHERE SEQ IN (1,2,3,4)"
 		try {
 			conn=getConnection();
+			fpsmt=conn.prepareStatement(fsql);
+			count=fpsmt.executeUpdate();
 			psmt=conn.prepareStatement(sql);
 			count=psmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("JDBC����:deleteBoard():"+getClass());
 			e.printStackTrace();
 		}finally {
+			close(null, fpsmt, conn);
 			close(null, psmt, conn);
 		}
 		return count>0?true:false;
