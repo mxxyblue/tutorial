@@ -3,6 +3,9 @@
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=UTF-8"); %>
 <%@page import="com.hk.dtos.LoginDto"%>
+<%@page import="com.hk.dtos.FileDto"%>
+<%@page import="com.hk.dtos.ADto"%>
+<%@page import="java.util.List"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -198,6 +201,14 @@
    h1{
 font-family: 'Gaegu', cursive;
 </style>
+<script type="text/javascript">
+	//글목록으로 돌아가기
+	function changeFName(){
+		var inp = document.getElementById("f").value;
+		
+		document.getElementsByTagName("label")[0].innerHTML=inp.substring(inp.lastIndexOf("\\")+1);
+	}
+</script>
 </head>
 <%
    LoginDto ldto=(LoginDto)session.getAttribute("ldto");
@@ -206,6 +217,10 @@ font-family: 'Gaegu', cursive;
    if(ldto==null){
       pageContext.forward("loginindex.jsp");
    }
+   
+	FileDto fdto = (FileDto)request.getAttribute("fdto");
+	//List<FileDto> list=(List<FileDto>)request.getAttribute("list");
+	ADto adto=(ADto)request.getAttribute("dto");
 %>
 <%
    String finalRole;
@@ -239,7 +254,7 @@ font-family: 'Gaegu', cursive;
       </div>
       <div id="main">
       <h1>게시글 수정하기</h1>
-      <form action="AController.do" method="post">
+      <form action="AController.do" method="post" enctype="multipart/form-data">
          <input type="hidden" name="command" value="updateboard"/>
          <input type="hidden" name="seq" value="${requestScope.dto.aseq}"/>
          <table class="table table-hover">
@@ -255,6 +270,13 @@ font-family: 'Gaegu', cursive;
                <th>내용</th>
                <td><textarea name="content" required="required" rows="10" cols="60" class="form-control">${dto.acontent}</textarea> </td>
             </tr>
+			<tr>
+				<th>첨부파일</th>
+				<td>
+					<input style="display:none;" type="file" id="f" name="filename" class="btn btn-default" onchange="changeFName()"/>
+					<label for="f"><%=fdto.getAorigin_fname()%></label>
+				</td>
+			</tr>
             <tr>
                <td colspan="2">
                      <input type="submit" value="수정완료" class="btn btn-default"/>
