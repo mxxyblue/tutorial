@@ -60,8 +60,7 @@ public class AController extends HttpServlet {
 		if(command==null) {
 			MultipartRequest multi=null;			
 
-			String saveDirectory="C:/Users/HYO LYN KIM/eclipse-workspace/tutorial_test"
-					+ "/src/main/webapp/upload";
+			String saveDirectory="C:/Users/jyjyn/workspace210622_2/tutorial_test_jy/src/main/webapp/upload";
 			
 			//1024byte --> 1kbyte --> 1024kb --> 1MB
 			int maxPostSize=1024*1024*10;
@@ -142,6 +141,7 @@ public class AController extends HttpServlet {
 			}
 		}else if(command.equals("insertform")) {
 			response.sendRedirect("Ainsertboard.jsp");
+			
 		}else if(command.equals("detailboard")) {//�� �󼼺���(��ȸ�� ����)
 			int seq=Integer.parseInt(request.getParameter("seq"));
 			ADto dto=dao.getABoard(seq);
@@ -188,8 +188,7 @@ public class AController extends HttpServlet {
 			FileDto dto=fdao.getFileInfo(seq);
 			
 			//���� ���� ���
-			String saveDirectory="C:/Users/HYO LYN KIM/eclipse-workspace/tutorial_test"
-					+ "/src/main/webapp/upload";
+			String saveDirectory="C:/Users/jyjyn/workspace210622_2/tutorial_test_jy/src/main/webapp/upload";
 			
 			String filePath=saveDirectory+"/"+dto.getAorigin_fname();
 			
