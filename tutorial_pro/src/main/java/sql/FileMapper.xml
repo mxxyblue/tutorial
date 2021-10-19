@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hk.file">
+
+	<insert id="insertFileInfo" parameterType="fileDto">
+		<selectKey keyProperty="aseq" order="BEFORE" resultType="int">
+			SELECT DISTINCT LAST_VALUE(aseq) over() FROM ABOARD 
+		</selectKey>
+		INSERT INTO AFILEBOARD VALUES 
+		(AFILEBOARD_SEQ.NEXTVAL,#{aorigin_fname}
+		 ,#{afile_size},SYSDATE, #{aseq})
+	</insert>
+	
+	<select id="getFileList" resultType="fileDto" parameterType="Map" >
+		SELECT FSEQ,AORIGIN_FNAME,AFILE_SIZE,
+		       AF_REGDATE, ASEQ
+		FROM AFILEBOARD 
+		<if test="aseq!=null">
+			<where>
+				ASEQ=#{aseq}
+			</where>
+		</if>
+		ORDER BY AF_REGDATE DESC
+	</select>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+

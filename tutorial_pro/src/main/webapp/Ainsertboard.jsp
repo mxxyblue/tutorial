@@ -272,6 +272,7 @@ font-family: 'Gaegu', cursive;
 			</tr>
 			<tr>
 				<td colspan="2">
+						<input type="file" value="파일첨부" name="filename" class="btn btn-primary"/> 
 						<input type="submit" value="글추가" class="btn btn-default"/>
 						<input type="button" value="글목록" class="btn btn-default"
 																onclick="boardList()"/>

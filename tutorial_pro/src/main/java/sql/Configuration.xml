@@ -12,6 +12,7 @@
 				<typeAlias type="com.hk.dtos.StuDto" alias="stuDto"/>
 		<typeAlias type="com.hk.dtos.TeamDto" alias="teamDto"/>
 		<typeAlias type="com.hk.dtos.ADto" alias="aDto"/>
+		<typeAlias type="com.hk.dtos.FileDto" alias="fileDto"/>
 	</typeAliases>
 	
 <!-- 	DB접속 정보 셋팅 -->
@@ -34,6 +35,7 @@
 		<mapper resource="sql/StuMapper.xml"/>
 		<mapper resource="sql/TeamMapper.xml"/>
 		<mapper resource="sql/AMapper.xml"/>
+		<mapper resource="sql/FileMapper.xml"/>
 	</mappers>
 </configuration>
 

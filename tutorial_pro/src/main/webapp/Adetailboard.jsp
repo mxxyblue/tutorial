@@ -3,6 +3,9 @@
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=UTF-8"); %>
 <%@page import="com.hk.dtos.LoginDto"%>
+<%@page import="com.hk.dtos.FileDto"%>
+<%@page import="com.hk.dtos.ADto"%>
+<%@page import="java.util.List"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -215,6 +218,9 @@ font-family: 'Gaegu', cursive;
 		pageContext.forward("index.jsp");
 // 		response.sendRedirect("index.jsp");
 	}
+	FileDto fdto = (FileDto)request.getAttribute("fdto");
+	//List<FileDto> list=(List<FileDto>)request.getAttribute("list");
+	ADto adto=(ADto)request.getAttribute("dto");
 %>
 <%
 	String finalRole;
@@ -260,6 +266,22 @@ font-family: 'Gaegu', cursive;
 			<tr>
 				<th>내용</th>
 				<td><textarea rows="10" cols="60" class="form-control" readonly>${dto.acontent}</textarea> </td>
+			</tr>
+			<tr>
+				<th>첨부파일</th>
+				<td>
+					<%
+						if(fdto==null){
+							%>첨부된 파일 없음<%
+						}else if(fdto.getAseq()==adto.getAseq()){
+							%>
+							<a href="AController.do?command=download&aseq=<%=fdto.getAseq()%>"><%=fdto.getAorigin_fname()%></a>
+							<%
+						}else{
+							%>파일을 불러오지 못함<%
+						}
+					%>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
