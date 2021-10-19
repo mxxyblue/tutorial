@@ -73,7 +73,7 @@ public class StuDao extends SqlMapConfig{
 			//다이나믹 쿼리를 사용하려면 파라미터를 Map에 담아서 전달해야 된다.
 			Map<String, Integer>map=new HashMap<String, Integer>();
 			map.put("sseq", seq);
-			dto=sqlSession.selectOne("com.hk.stuboard.stuboardlist", map);
+			dto=sqlSession.selectOne("com.hk.stuboard.detailboardlist", map);
 		} catch (Exception e) {
 			System.out.println("JDBC실패:getStuBoard():"+getClass());
 			e.printStackTrace();

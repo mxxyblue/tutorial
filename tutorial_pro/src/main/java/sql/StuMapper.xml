@@ -3,9 +3,10 @@
 
 <mapper namespace="com.hk.stuboard">
 	<select id="stuboardlist" resultType="stuDto" parameterType="String">
-		SELECT SSEQ,SID,STITLE,SCONTENT,SREGDATE,SREFER,SSTEP,SDEPTH,SREADCOUNT,SDELFLAG, TEAMNUM
+		SELECT SSEQ,SID,STITLE,SCONTENT,SREGDATE,SREFER,SSTEP,SDEPTH,SREADCOUNT,SDELFLAG
 		FROM SBOARD
 		WHERE TEAMNUM = (SELECT TEAMNUM FROM TEAM WHERE TUTOR = #{id} OR TUTEE1 = #{id} OR TUTEE2 = #{id})
+		ORDER BY SREFER DESC,SSTEP 
 <!-- 		<where> -->
 <!-- 			<if test="sseq!=null"> -->
 <!-- 				 SSEQ=#{sseq} -->
@@ -15,6 +16,16 @@
 <!-- 				TEAMNUM = (SELECT TEAMNUM FROM TEAM WHERE #{sid}=TUTOR OR #{sid}=TUTEE1 OR #{sid}=TUTEE2)	 -->
 <!-- 			</if> -->
 <!-- 		</where> -->
+	</select>
+	
+	<select id="detailboardlist" resultType="stuDto" parameterType="Map">
+		SELECT SSEQ,SID,STITLE,SCONTENT,SREGDATE,SREFER,SSTEP,SDEPTH,SREADCOUNT,SDELFLAG
+		FROM SBOARD
+		<where>
+			<if test="sseq!=null">
+				 SSEQ=#{sseq}
+			</if> 
+		</where>
 		ORDER BY SREFER DESC,SSTEP 
 	</select>
 
@@ -63,7 +74,8 @@
 		VALUES(SBOARD_SEQ.NEXTVAL,#{sid},#{stitle},#{scontent},SYSDATE 
 		,(SELECT SREFER FROM SBOARD WHERE SSEQ=#{sseq})
 		,(SELECT SSTEP FROM SBOARD WHERE SSEQ=#{sseq})+1 
-		,(SELECT SDEPTH FROM SBOARD WHERE SSEQ=#{sseq})+1, 0, 'N')
+		,(SELECT SDEPTH FROM SBOARD WHERE SSEQ=#{sseq})+1, 0, 'N', 
+		(SELECT TEAMNUM FROM TEAM WHERE #{sid}=TUTOR OR #{sid}=TUTEE1 OR #{sid}=TUTEE2 OR #{sid}=TUTEE3 OR #{sid}=TUTEE4))
 	</insert>
 	
 	<select id="recentlist" resultType="stuDto" parameterType="Map">
