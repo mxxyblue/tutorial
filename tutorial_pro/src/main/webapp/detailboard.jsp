@@ -19,7 +19,7 @@
 /* 		height: 500px; */
 /* 	} */
 	
-*{font-family: 'Gothic A1', sans-serif;}
+
 
 #main >ul{ list-style:none;}
 
@@ -194,6 +194,7 @@
  	text-align: center; 
 	position: relative;
 /* 	background-color: #F2F2F2; */
+	font-family: 'Gothic A1', sans-serif;
 }
 
 #footer {
