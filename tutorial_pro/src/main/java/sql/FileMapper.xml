@@ -23,7 +23,11 @@
 		</if>
 		ORDER BY AF_REGDATE DESC
 	</select>
-	
+	<update id="updateFileInfo" parameterType="fileDto">
+		UPDATE AFILEBOARD 
+		SET AORIGIN_FNAME=#{aorigin_fname}, AFILE_SIZE=#{afile_size}
+		WHERE ASEQ=#{aseq}
+	</update>
 	
 </mapper>
 

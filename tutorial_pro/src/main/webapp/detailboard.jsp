@@ -19,7 +19,7 @@
 /* 		height: 500px; */
 /* 	} */
 	
-*{font-family: 'Gothic A1', sans-serif;}
+
 
 #main >ul{ list-style:none;}
 
