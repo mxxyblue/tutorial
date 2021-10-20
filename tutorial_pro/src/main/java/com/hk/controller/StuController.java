@@ -1,5 +1,8 @@
 package com.hk.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
@@ -10,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -17,9 +21,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.hk.daos.SFileDao;
 import com.hk.daos.StuDao;
+import com.hk.dtos.ADto;
 import com.hk.dtos.LoginDto;
+import com.hk.dtos.SFileDto;
 import com.hk.dtos.StuDto;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import net.sf.json.JSONObject;
 
@@ -41,16 +50,154 @@ public class StuController extends HttpServlet {
 	}
 	
 	
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String command=request.getParameter("command");
 		
 		//싱글턴패턴
 		StuDao dao=StuDao.getStuDao();
+		SFileDao fdao=new SFileDao();
 		//session객체 구함
 		HttpSession session=request.getSession();
 		
-		if(command.equals("boardlist")) {
+		if(command==null) {
+	         MultipartRequest multi=null;      
+	               
+	         String saveDirectory="C:/Academy/eclipse-workspace/tutorial_test/src/main/webapp/upload";
+	               
+	               //1024byte --> 1kbyte --> 1024kb --> 1MB
+	        int maxPostSize=1024*1024*10;
+	        
+	         try {
+	               multi=new MultipartRequest(request, saveDirectory, maxPostSize, "utf-8",
+	                                         new DefaultFileRenamePolicy());
+	            } catch (IOException e) {
+	               // TODO Auto-generated catch block
+	               e.printStackTrace();
+	            }
+	         if(multi.getParameter("command").equals("insertboard")) {     
+
+	            String id=multi.getParameter("id");
+	            String title=multi.getParameter("title");
+	            String content=multi.getParameter("content");
+	            
+	            boolean isS=dao.insertBoard(new StuDto(id,title,content));
+	            
+	            String origin_fname=multi.getOriginalFileName("filename");//   ε  Ҷ         ϸ  ϱ 
+	            
+	            //String random32= UUID.randomUUID().toString().replaceAll("-", "");//"-"     ϰ  32 ڸ        
+	            String stored_fname=origin_fname.substring(origin_fname.lastIndexOf("."));
+	                                                      // "123.jpg".substring(3) --> ".jpg"
+	            
+	            int file_size=(int)multi.getFile("filename").length();// file.length()   ȯŸ   long
+	            
+	            boolean fisS=fdao.insertFileInfo(
+	                  new SFileDto(origin_fname,file_size));
+	            
+	            File oldFile=new File(saveDirectory+"/"+multi.getFilesystemName("filename"));
+	            File newFile=new File(saveDirectory+"/"+stored_fname);
+	            oldFile.renameTo(newFile);//old--> new      ϸ   ٲ 
+	               
+	            if(isS) {
+	               response.sendRedirect("StuController.do?command=boardlist");
+	            }else {
+	               response.sendRedirect("error.jsp?msg="+URLEncoder.encode("3","utf-8"));
+	            }
+	         }else if(multi.getParameter("command").equals("updateboard")) {
+	             
+	                int seq=Integer.parseInt(multi.getParameter("seq"));
+	                String title=multi.getParameter("title");
+	                String content=multi.getParameter("content");
+	                
+	                StuDto dto=dao.getStuBoard(seq);
+	                request.setAttribute("dto", dto);
+	                                                                  
+	                if(multi.getOriginalFileName("filename")!=null) {
+	                   String origin_fname=multi.getOriginalFileName("filename");//   ε  Ҷ         ϸ  ϱ 
+	                
+	                   //String random32= UUID.randomUUID().toString().replaceAll("-", "");//"-"     ϰ  32 ڸ        
+	                   String stored_fname=origin_fname.substring(origin_fname.lastIndexOf("."));
+	                    
+	                   int file_size=(int)multi.getFile("filename").length();// file.length()   ȯŸ   long
+	                   
+	                   boolean fisS=fdao.updateFile(
+	                            new SFileDto(origin_fname, file_size, seq));
+	                      
+	                      File oldFile=new File(saveDirectory+"/"+multi.getFilesystemName("filename"));
+	                      File newFile=new File(saveDirectory+"/"+stored_fname);
+	                      oldFile.renameTo(newFile);//old--> new                              // "123.jpg".substring(3) --> ".jpg"
+	                }
+	                
+	                SFileDto fdto = fdao.getFileInfo(seq);
+	                request.setAttribute("fdto", fdto);       
+	                
+	                boolean isS=dao.updateBoard(new StuDto(seq,title,content));           
+	                      
+	                if(isS) {
+	                   //Adetailboard.jsp:응답할 페이지를 먼저 확인해본다
+	                   //내가 수정한 글을 바로 조회해서 본다.
+	                   response.sendRedirect("StuController.do?command=detailboard&seq="+seq);
+	                }else {
+	                   response.sendRedirect("error.jsp?msg="+URLEncoder.encode("수정실패","utf-8"));
+	                }
+	         
+		}
+	         }else if(command.equals("download")) {//      ٿ ε  ϱ 
+	         // ٿ ε    û             DB             
+	         int seq=Integer.parseInt(request.getParameter("sseq"));
+	         SFileDto dto=fdao.getFileInfo(seq);
+	         
+	         //             
+	         String saveDirectory="C:/Academy/eclipse-workspace/tutorial_test/src/main/webapp/upload";
+	         
+	         String filePath=saveDirectory+"/"+dto.getSorigin_fname();
+	         
+	         File file=new File(filePath);//File  ü     
+	         
+//	         int [] i=new int[3];//[0,0,0]
+//	         int []ii={1,2,3,4,5};
+	         //java    ѹ             ִ       ũ ⸸ŭ  迭       
+	         byte[] b=new byte[(int)file.length()];
+	         
+	         //                           ʱ ȭ
+	         response.reset();
+	         
+	         // ٿ ε  ϴ                 𸥴ٸ  octet-stream      Ѵ .
+	         //  ) application/msword
+	         response.setContentType("application/octet-stream");
+	         
+	         // ѱ    ڵ  :  ѱ    Ͽ       ̸                    
+	         String encoding=new String(dto.getSorigin_fname().getBytes("utf-8"),"8859_1");
+	         
+	         //        ٿ ε    ư   Ŭ           ٿ ε      ȭ              ó  
+	         //   ϸ           ϸ       ٲ  ִ   ڵ 
+	         response.setHeader("Content-Disposition", "attachment; filename="+encoding);
+	         
+	         FileInputStream in =null;//        о   ̱         ü( Է )
+	         ServletOutputStream out=null;//                ü(   )
+	         
+	         try {
+	            //file    о   ̱                 غ  Ѵ .
+	            in=new FileInputStream(file);
+	            
+	            //                     غ  Ѵ .
+	            out=response.getOutputStream();
+	            
+	            // о   ̴                  
+	            int numRead=0;
+	            //read()              о    
+	            while((numRead=in.read(b, 0, b.length))!=-1) {
+	               //write()                 ϱ 
+	               out.write(b, 0, numRead);
+	            }
+	         } catch (FileNotFoundException e) {
+	            // TODO Auto-generated catch block
+	            e.printStackTrace();
+	         }finally {
+	            out.flush();//          Ͱ                 о           
+	            out.close();//out  ü  ݱ 
+	            in.close();//in  ü  ݱ 
+	         }
+	      } else if(command.equals("boardlist")) {
 //------조회수 처리 코드 시작-------			
 			//글목록을 요청하면 session 또는 cookie를 삭제하자
 			//1.session삭제하기
@@ -108,15 +255,10 @@ public class StuController extends HttpServlet {
 			}
 		}else if(command.equals("detailboard")) {//글 상세보기(조회수 포함)
 			int seq=Integer.parseInt(request.getParameter("seq"));
+			SFileDto fdto = fdao.getFileInfo(seq);
+	        request.setAttribute("fdto", fdto);
+	         
 			StuDto dto=dao.getStuBoard(seq);
-			
-	//------조회수 올리기할때 확인 코드 시작---------//
-			//session 이용하기: 글의 내용을 조회한 상태를 확인
-//			if(session.getAttribute("readcount")==null) {//readcount값이 없다면
-//				session.setAttribute("readcount", "readcount");
-//				dao.readCount(seq);//조회수 올리기
-//			}
-			
 			//쿠키의 값들을 가져오기(반환타입:배열)
 			Cookie[] cookies=request.getCookies();
 			String s=null;
@@ -155,6 +297,8 @@ public class StuController extends HttpServlet {
 		}else if(command.equals("updateform")) {
 			int seq=Integer.parseInt(request.getParameter("seq"));
 			StuDto dto=dao.getStuBoard(seq);
+			SFileDto fdto = fdao.getFileInfo(seq);
+            request.setAttribute("fdto", fdto);   
 			request.setAttribute("dto", dto);
 			dispatch("stuupdateboard.jsp", request, response);
 		}else if(command.equals("updateboard")) {
@@ -224,6 +368,7 @@ public class StuController extends HttpServlet {
 			request.setAttribute("list", list);
 			dispatch("admin_main.jsp", request, response);
 		}
+	         
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

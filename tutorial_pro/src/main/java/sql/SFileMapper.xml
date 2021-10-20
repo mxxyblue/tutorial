@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hk.sfile">
+
+	<insert id="insertFileInfo" parameterType="sfileDto">
+		<selectKey keyProperty="sseq" order="BEFORE" resultType="int">
+			SELECT DISTINCT LAST_VALUE(sseq) over() FROM SBOARD 
+		</selectKey>
+		INSERT INTO SFILEBOARD VALUES 
+		(SFILEBOARD_SEQ.NEXTVAL,#{sorigin_fname}
+		 ,#{sfile_size},SYSDATE, #{sseq})
+	</insert>
+	
+	<select id="getFileList" resultType="sfileDto" parameterType="Map" >
+		SELECT FSEQ,SORIGIN_FNAME,SFILE_SIZE,
+		       SF_REGDATE, SSEQ
+		FROM SFILEBOARD 
+		<if test="sseq!=null">
+			<where>
+				SSEQ=#{sseq}
+			</where>
+		</if>
+		ORDER BY SF_REGDATE DESC
+	</select>
+	<update id="updateFileInfo" parameterType="sfileDto">
+		UPDATE SFILEBOARD 
+		SET SORIGIN_FNAME=#{sorigin_fname}, SFILE_SIZE=#{sfile_size}
+		<if test="sseq!=null">
+			<where>
+				SSEQ=#{sseq}
+			</where>
+		</if>
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
