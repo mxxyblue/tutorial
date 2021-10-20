@@ -19,6 +19,7 @@
 	a > img{width: 15px; height: 15px;}
 	.ctitle{background-color: skyblue;}
 	
+	
 	/*일정 개수를 출력하는 div */
 	.count{ 
 		position: absolute;
