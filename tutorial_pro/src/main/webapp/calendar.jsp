@@ -366,6 +366,7 @@
 				<a href="CalController.do?command=calendar&year=<%=year+1%>&month=<%=month%>">▷</a>
 
 			</caption>
+			
 			<tr>
 				<th>일</th>
 				<th>월</th>
