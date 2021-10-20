@@ -193,6 +193,7 @@
  	text-align: center; 
 	position: relative;
 /* 	background-color: #F2F2F2; */
+	font-family: 'Gothic A1', sans-serif;
 }
 
 #footer {

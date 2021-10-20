@@ -189,6 +189,7 @@
 /* 	height:500px; */
  	text-align: center; 
 	position: relative;
+	font-family: 'Gothic A1', sans-serif;
 /* 	background-color: #F2F2F2; */
 }
 
