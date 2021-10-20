@@ -19,7 +19,6 @@
 	a > img{width: 15px; height: 15px;}
 	.ctitle{background-color: skyblue;}
 	
-	
 	/*일정 개수를 출력하는 div */
 	.count{ 
 		position: absolute;
@@ -122,6 +121,7 @@
 	//한달 단위 일정 목록
 	List<CalDto>list=(List<CalDto>)request.getAttribute("list");
 %>
+
 <body>
 <h1>${sessionScope.ldto.name}님의 일정보기</h1>
 <table border="1">
@@ -180,7 +180,7 @@
 	
 </table>
 <br/>
-<a href="TuController.do?command=main2" id="remain">메인으로</a>
+<a href="StuController.do?command=boardlist" id="remain">글목록으로</a>
 
 <script type="text/javascript">
 	function penChg(){
