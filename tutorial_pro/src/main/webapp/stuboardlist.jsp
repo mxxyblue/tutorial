@@ -305,7 +305,6 @@ font-family: 'Gaegu', cursive;
 			<tr>
 				<th><input class="checkbox" type="checkbox" name="all" onclick="allSel(this.checked)"/></th>
 				<th>번호</th>
-				<th>팀번호</th>
 				<th>작성자</th>
 				<th>제목</th>
 				<th>작성일</th>
@@ -321,7 +320,6 @@ font-family: 'Gaegu', cursive;
 						<tr>
 							<td><input class="checkbox" type="checkbox" name="chk" value="${dto.sseq}"/></td>
 							<td>${count=count+1}</td>
-							<td>${dto.teamnum}</td>
 							<td>${dto.sid}</td>
 							<c:choose>
 								<c:when test="${dto.sdelflag eq 'N'}">

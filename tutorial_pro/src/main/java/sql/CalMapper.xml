@@ -34,8 +34,12 @@
 	</select>
 	
 	<insert id="calInsert" parameterType="calDto">
-		INSERT INTO CBOARD VALUES(CBOARD_SEQ.NEXTVAL,
-		#{id},#{caltitle},#{calcontent},#{mdate},SYSDATE,2)
+		INSERT INTO CBOARD VALUES(CBOARD_SEQ.NEXTVAL, #{id}, #{caltitle}
+		, #{calcontent}, #{mdate}, SYSDATE
+		, (SELECT TEAMNUM FROM TEAM WHERE TUTOR=#{id} OR TUTEE1=#{id} OR TUTEE2=#{id} OR TUTEE3=#{id} OR TUTEE4=#{id}))
+<!-- 		INSERT INTO CBOARD VALUES(CBOARD_SEQ.NEXTVAL, -->
+<!-- 		#{id},#{caltitle},#{calcontent},#{mdate},SYSDATE, -->
+<!-- 		(SELECT TEAMNUM FROM TEAM WHERE TUTOR = #{id} OR TUTEE1= #{id} OR TUTEE2= #{id})) -->
 	</insert>
 	
 	<select id="getCalBoardList" parameterType="Map" resultMap="calDtoMap">
