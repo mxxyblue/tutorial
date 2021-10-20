@@ -53,7 +53,8 @@
 		<col width="100px">
 		<tr>
 			<th><input type="checkbox" name="all" onclick="allSel(this.checked)"/></th>
-			<th>번호</th>		
+			<th>번호</th>	
+			<th>아이디</th>	
 			<th>일정</th>
 			<th>제목</th>
 			<th>작성일</th>
@@ -71,6 +72,7 @@
 						<td><c:set var="num" value="${num+1}"/>
 							${num}
 						</td>
+						<td>${dto.id}</td>
 						<td>
 <!-- 						jstl을 이용해서 날짜 형식 표현하기 -->
 	<%-- 					<fmt:parseDate var="parseMdate" value="${dto.mdate}" pattern="yyyyMMddHHmm"/> --%>
@@ -86,7 +88,7 @@
 			</c:otherwise>
 		</c:choose>
 		<tr>
-			<td colspan="5">
+			<td colspan="6">
 				<input type="button" value="달력보기" onclick="calendar(${param.year},${param.month})"/>
 				<input type="submit" value="삭제"/>
 			</td>
