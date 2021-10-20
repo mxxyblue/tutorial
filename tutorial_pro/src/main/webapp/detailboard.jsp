@@ -298,7 +298,7 @@ font-family: 'Gaegu', cursive;
 				<table class="table table-hover">
 					<tr>
 						<th>작성자</th>
-						<td><input required="required" type="text" name="id" class="form-control"/></td>
+						<td><input required="required" type="text" name="id" class="form-control" value="<%=ldto.getId()%>" readonly/></td>
 					</tr>
 					<tr>
 						<th>제목</th>
