@@ -341,9 +341,8 @@ table{width: 50px;}
 		</c:otherwise>
 	</c:choose>
 	</div>
-</div>
-		
-		
+</div>	
+	
 <%! //자바 선언부: 메서드 선언코드 작성
 	public String getRoleName(String rName){
 		String s="";
