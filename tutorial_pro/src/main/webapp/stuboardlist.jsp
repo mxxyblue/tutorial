@@ -319,7 +319,14 @@ font-family: 'Gaegu', cursive;
 				<c:otherwise>
 					<c:forEach items="${list}" var="dto">
 						<tr>
-							<td><input class="checkbox" type="checkbox" name="chk" value="${dto.sseq}"/></td>
+						<c:choose>
+							<c:when test="${ldto.id eq dto.sid || ldto.role eq 'ADMIN' }">
+								<td><input class="checkbox" type="checkbox" name="chk" value="${dto.sseq}"/></td>
+							</c:when>
+							<c:otherwise>
+								<td><input class="checkbox" disabled="disabled" type="checkbox" name="chk" value="${dto.sseq}"/></td>
+							</c:otherwise>
+							</c:choose>
 							<td>${count=count+1}</td>
 							<td>${dto.sid}</td>
 							<c:choose>

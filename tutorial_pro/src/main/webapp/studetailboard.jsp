@@ -3,6 +3,8 @@
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=UTF-8"); %>
 <%@page import="com.hk.dtos.LoginDto"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -133,7 +135,14 @@ font-family: 'Gaegu', cursive;
 			<tr>
 				<td colspan="2">
 					<button type="button" class="btn btn-default" onclick="updateForm(${dto.sseq})">수정</button>
-					<button type="button" class="btn btn-default" onclick="delBoard(${dto.sseq})">삭제</button>
+					<c:choose>
+							<c:when test="${ldto.id eq dto.sid || ldto.role eq 'ADMIN' }">
+								<button type="button" class="btn btn-default" onclick="delBoard(${dto.sseq})">삭제</button>
+							</c:when>
+							<c:otherwise>
+								<button type="button" class="btn btn-default" disabled="disabled" onclick="delBoard(${dto.sseq})">삭제</button>
+							</c:otherwise>
+						</c:choose>
 					<button type="button" class="btn btn-default" onclick="replyForm()">답글</button>
 					<button type="button" class="btn btn-default" onclick="boardList()">목록</button>
 				</td>
