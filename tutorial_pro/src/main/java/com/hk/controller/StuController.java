@@ -83,20 +83,22 @@ public class StuController extends HttpServlet {
 	            
 	            boolean isS=dao.insertBoard(new StuDto(id,title,content));
 	            
-	            String origin_fname=multi.getOriginalFileName("filename");//   ε  Ҷ         ϸ  ϱ 
-	            
-	            //String random32= UUID.randomUUID().toString().replaceAll("-", "");//"-"     ϰ  32 ڸ        
-	            String stored_fname=origin_fname.substring(origin_fname.lastIndexOf("."));
-	                                                      // "123.jpg".substring(3) --> ".jpg"
-	            
-	            int file_size=(int)multi.getFile("filename").length();// file.length()   ȯŸ   long
-	            
-	            boolean fisS=fdao.insertFileInfo(
-	                  new SFileDto(origin_fname,file_size));
-	            
-	            File oldFile=new File(saveDirectory+"/"+multi.getFilesystemName("filename"));
-	            File newFile=new File(saveDirectory+"/"+stored_fname);
-	            oldFile.renameTo(newFile);//old--> new      ϸ   ٲ 
+	               if(multi.getOriginalFileName("filename")!=null) {
+	                   String origin_fname=multi.getOriginalFileName("filename");//   ε  Ҷ         ϸ  ϱ 
+	                
+	                   //String random32= UUID.randomUUID().toString().replaceAll("-", "");//"-"     ϰ  32 ڸ        
+	                   String stored_fname=origin_fname.substring(origin_fname.lastIndexOf("."));
+	                                                          // "123.jpg".substring(3) --> ".jpg"
+	                
+	                   int file_size=(int)multi.getFile("filename").length();// file.length()   ȯŸ   long
+	                
+	                   boolean fisS=fdao.insertFileInfo(
+	                         new SFileDto(origin_fname,file_size));
+	                
+	                   File oldFile=new File(saveDirectory+"/"+multi.getFilesystemName("filename"));
+	                   File newFile=new File(saveDirectory+"/"+stored_fname);
+	                   oldFile.renameTo(newFile);//old--> new      ϸ   ٲ 
+	                }  
 	               
 	            if(isS) {
 	               response.sendRedirect("StuController.do?command=boardlist");

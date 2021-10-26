@@ -330,6 +330,7 @@ LoginDto ldto=(LoginDto)session.getAttribute("ldto");
 	</c:choose>
 	</div>
 </div>
+<div id="footer">주소: 서울특별시 영등포구 양평동3가 15-1 4층</div>
 </body>
 </html>
 
