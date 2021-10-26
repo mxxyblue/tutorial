@@ -29,7 +29,7 @@ public class CalController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("controller에 요청");
-		//요청의 대한 내용을 받는 코드
+		//요청의 대한 내용을 받는 코드 
 		String command=request.getParameter("command");
 		
 		//DB에 관련된 작업을 위한 객체 생성

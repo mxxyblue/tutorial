@@ -62,7 +62,8 @@ public class StuController extends HttpServlet {
 		if(command==null) {
 	         MultipartRequest multi=null;      
 	               
-	         String saveDirectory="C:/Academy/eclipse-workspace/tutorial_test/src/main/webapp/upload";
+	         String saveDirectory="C:/Users/HYO LYN KIM/eclipse-workspace/tutorial_test"
+                     + "/src/main/webapp/upload";
 	               
 	               //1024byte --> 1kbyte --> 1024kb --> 1MB
 	        int maxPostSize=1024*1024*10;
@@ -147,7 +148,8 @@ public class StuController extends HttpServlet {
 	         SFileDto dto=fdao.getFileInfo(seq);
 	         
 	         //             
-	         String saveDirectory="C:/Academy/eclipse-workspace/tutorial_test/src/main/webapp/upload";
+	         String saveDirectory="C:/Users/HYO LYN KIM/eclipse-workspace/tutorial_test"
+                     + "/src/main/webapp/upload";
 	         
 	         String filePath=saveDirectory+"/"+dto.getSorigin_fname();
 	         

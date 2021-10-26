@@ -33,7 +33,7 @@ public class TuController extends HttpServlet {
 		Cookie[] cookies=request.getCookies();
 		Cookie cookie=null;
 		for (int i = 0; i < cookies.length; i++) {
-			if(cookies[i].getName().equals(cookieName)) {
+			if(cookies[i].getName().equals(cookieName)) { 
 				cookie=cookies[i];
 			}
 		}

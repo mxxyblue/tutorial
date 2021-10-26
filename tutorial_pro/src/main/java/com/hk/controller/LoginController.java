@@ -22,7 +22,7 @@ public class LoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String command=request.getParameter("command");
 		
-		LoginDao dao=new LoginDao();
+		LoginDao dao=new LoginDao(); 
 		
 		if(command.equals("login")) {
 			String id=request.getParameter("id");
